@@ -6,12 +6,10 @@ import javax.swing.AbstractButton;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
-public class Application {
+public class Application implements ActionListener{
     
     JFrame frame = new JFrame();
     JButton button = new JButton("Setup hand here");
-    JLabel label = new JLabel();
-   
 
     public Application() {
         frame.setSize(500, 500);
@@ -20,11 +18,14 @@ public class Application {
         button.setSize(250, 50);
         button.setVisible(true);
         frame.getContentPane().add(button);
-        label.setBounds(10,10,100,100);
-        button.addActionListener(new ActionListener());
-       
+        button.addActionListener(this);
     }
     public static void main(String[] args) {
         new Application();
+    }
+
+    @Override
+    public void actionPerformed(ActionEvent event) {
+        button.setVisible(false);
     }
 }
