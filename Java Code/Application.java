@@ -1,6 +1,10 @@
 import javax.swing.*;
 import java.awt.event.*;
 import java.awt.GridBagLayout;
+import com.github.sarxos.webcam.Webcam;
+import javax.imageio.ImageIO;
+import java.io.File;
+import java.io.IOException;
 
 public class Application implements ActionListener{    
     JFrame frame = new JFrame();
@@ -13,6 +17,7 @@ public class Application implements ActionListener{
         frame.setVisible(true);
         frame.setLayout(new GridBagLayout());
         //Button Setup
+        button.setSize(250, 50);
         frame.add(button);
         button.setVisible(true);
         button.addActionListener(this);
@@ -23,6 +28,9 @@ public class Application implements ActionListener{
 
     @Override
     public void actionPerformed(ActionEvent event) {
-        button.setVisible(false);
+    	Webcam webcam = Webcam.getDefault();
+    	webcam.open();
+    	ImageIO.write(webcam.getImage(), "PNG", new File("hello-world.png"));
+
     }
 }
