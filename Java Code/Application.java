@@ -16,7 +16,6 @@ public class Application implements ActionListener{
         frame.add(button);
         button.setVisible(true);
         button.addActionListener(this);
-        Container.add();
     }
     public static void main(String[] args) {
         new Application();
