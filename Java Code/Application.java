@@ -23,7 +23,6 @@ public class Application implements ActionListener{
 
     @Override
     public void actionPerformed(ActionEvent event) {
-        CVCapture capture = opencv_highgui.cvCreateCameraCapture(0);
         
     }
 }
