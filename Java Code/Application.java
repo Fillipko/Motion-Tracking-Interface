@@ -11,10 +11,10 @@ public class Application implements ActionListener{
         frame.setSize(800, 500);
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         frame.setVisible(true);
-        frame.setLayout(new GridBagLayout());
         //Button Setup
         frame.add(button);
         button.setVisible(true);
+        button.setSize(50, 100);
         button.addActionListener(this);
     }
     public static void main(String[] args) {
@@ -23,6 +23,7 @@ public class Application implements ActionListener{
 
     @Override
     public void actionPerformed(ActionEvent event) {
-        button.setVisible(false);
+        CVCapture capture = opencv_highgui.cvCreateCameraCapture(0);
+        
     }
 }
