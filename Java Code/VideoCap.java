@@ -1,6 +1,6 @@
 import org.opencv.core.Core;
 import org.opencv.videoio.VideoCapture;
-import java.awt.image.BufferedImage;
+import java.awt.image.*;
 
 public class VideoCap 
 {
@@ -9,8 +9,8 @@ public class VideoCap
 		System.loadLibrary(Core.NATIVE_LIBRARY_NAME);
 	}
 	
-	VideoCapture capture;
-	Mat mat2image = new Mat();
+	private VideoCapture capture;
+	private Mat2Image mat2img = new Mat2Image();
 	
 	public VideoCap()
 	{
@@ -20,7 +20,7 @@ public class VideoCap
 	
 	BufferedImage getOneFrame()
 	{
-		capture.read(mat2image.mat);
-		return mat2image.getImage(mat2image.mat);
+		capture.read(mat2img.getMat());
+        return mat2img.getImage(mat2img.getMat());
 	}
 }
