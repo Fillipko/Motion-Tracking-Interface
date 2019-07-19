@@ -27,7 +27,7 @@ public class Identifier {
 		for (Rect rect : faceDetection.toArray()) {
 			Imgproc.rectangle(src, new Point(rect.x, rect.y), new Point(rect.x + rect.width, rect.y + rect.height), new Scalar(0, 0, 250), 3);
 		}
-		
+
 		Imgcodecs.imwrite("Images/_DSC4053_out.jpg", src);
 		System.out.println("Image Detection Finished");
 	}
