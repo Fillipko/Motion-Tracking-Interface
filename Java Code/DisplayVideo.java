@@ -1,4 +1,5 @@
 import java.awt.*;
+import java.awt.Graphics.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.File;
@@ -17,7 +18,9 @@ public class DisplayVideo extends JFrame implements ActionListener
     private boolean activeCamera;
     private static DisplayVideo frame;
     private Image img;
-
+    private int counter;
+    
+    
     public static void main(String[] args) {
         EventQueue.invokeLater(new Runnable() {
             public void run() {
@@ -32,14 +35,15 @@ public class DisplayVideo extends JFrame implements ActionListener
     }
 
     public DisplayVideo() throws IOException {
-        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+    	setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setSize(800, 800);
+        counter = 0;
+        activeCamera = false;
         toggleCam = new JButton("Toggle Camera");
         toggleCam.addActionListener(this);
         contentPane = new JPanel();
         contentPane.setBorder(new EmptyBorder(0, 0, 0, 0));
         setContentPane(contentPane);
-        contentPane.setLayout(null);
         contentPane.add(Box.createHorizontalGlue());
         contentPane.add(toggleCam);
         contentPane.setLayout(new BoxLayout(contentPane, BoxLayout.LINE_AXIS));
@@ -53,12 +57,14 @@ public class DisplayVideo extends JFrame implements ActionListener
         img = ImageIO.read(new File("C:/Users/walkd/Documents/blackscreen.png"));
     }
 
-    public void paint(Graphics g){
-    	if(!activeCamera)
+    public void paint(Graphics g)
+    {
+    	if(!activeCamera && counter % 2 == 0) 
     	{
+    		counter++;
     		g.drawImage(img, 0, 0, this);
-    	} 
-    	else 
+    	}
+    	if (activeCamera)
     	{
             g = contentPane.getGraphics();
             g.drawImage(capture.getOneFrame(), 0, 0, this);
@@ -71,7 +77,7 @@ public class DisplayVideo extends JFrame implements ActionListener
                 repaint();
                 try 
                 { 
-                	Thread.sleep(33);
+                	Thread.sleep(66);
                 } 
                 catch (InterruptedException e) {
                 	e.printStackTrace();
@@ -83,7 +89,15 @@ public class DisplayVideo extends JFrame implements ActionListener
 	public void actionPerformed(ActionEvent e) {
 		if (e.getSource().equals(toggleCam))
 		{
-			activeCamera = !activeCamera;
+			if(activeCamera)
+			{
+				activeCamera = false;
+				counter++;
+			}
+			else 
+			{
+				activeCamera = true;	
+			}
 		}
 	}
 }
