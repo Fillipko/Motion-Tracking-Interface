@@ -16,6 +16,7 @@ public class DisplayWebcam extends JFrame implements ActionListener, ImageObserv
 	private JPanel contentPane;
 	private VideoCap capture;
 	private JButton toggleCam;
+	private JButton teachNew;
 	private boolean activeCamera;
 	private Thread t;
 	private Image blackscreen;
@@ -43,6 +44,7 @@ public class DisplayWebcam extends JFrame implements ActionListener, ImageObserv
 		contentPane = new JPanel();
 		capture = new VideoCap();
 		toggleCam = new JButton("Toggle Camera");
+		teachNew = new JButton("Teach New Gesture");
 		activeCamera = false;
 		blackscreen = ImageIO.read(new File("src/blackscreen.png"));
 		counter = 0;
@@ -62,6 +64,8 @@ public class DisplayWebcam extends JFrame implements ActionListener, ImageObserv
 		c.gridwidth = 100;
 		c.anchor = GridBagConstraints.SOUTH;
 		buttonPane.add(toggleCam, c);
+		c.gridx = 100;
+		buttonPane.add(teachNew, c);
 		setContentPane(contentPane);
 		contentPane.setLayout(new BorderLayout());
 		contentPane.setBorder(new EmptyBorder(0, 0, 0, 0));
@@ -114,6 +118,11 @@ public class DisplayWebcam extends JFrame implements ActionListener, ImageObserv
 				activeCamera = true;	
 			}
 		}
+		if(e.getSource().equals(teachNew))
+		{
+			
+		}
+
 	}
 
 	public boolean imageUpdate(Image img, int infoflags, int x, int y, int width, int height)
