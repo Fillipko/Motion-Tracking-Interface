@@ -122,6 +122,7 @@ public class DisplayWebcam extends JFrame implements ActionListener, ImageObserv
 		{
 			
 		}
+
 	}
 
 	public boolean imageUpdate(Image img, int infoflags, int x, int y, int width, int height)

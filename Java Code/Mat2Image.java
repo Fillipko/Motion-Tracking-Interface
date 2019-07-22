@@ -41,7 +41,10 @@ public class Mat2Image
         int h = mat.rows();
         if (buffImg == null || buffImg.getWidth() != w || buffImg.getHeight() != h || buffImg.getType() != type)
         {
+        	if(w > 0 && h > 0) 
+        	{
         	buffImg = new BufferedImage(w, h, type);
+        	}
         }
     }
 
