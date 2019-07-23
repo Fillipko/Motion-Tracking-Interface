@@ -39,8 +39,9 @@ public class GetHandImage extends JFrame{
 		getLoc();
 		handwidth = getHandWidth();;
 		handheight = getHandHeight();
-		Robot robot = new Robot();
-		redd = robot.createScreenCapture(new Rectangle((int)p.getX(),(int)p.getY(), handwidth, handheight));
+		redd = buff.getSubimage((int)p.getX(),(int) p.getY(), handwidth, handheight);
+//		Robot robot = new Robot();
+//		redd = robot.createScreenCapture.(new Rectangle((int)p.getX(),(int)p.getY(), handwidth, handheight));
 //		redd = new BufferedImage(handwidth, handheight, BufferedImage.TYPE_3BYTE_BGR);
 //
 //		int countx=0;
