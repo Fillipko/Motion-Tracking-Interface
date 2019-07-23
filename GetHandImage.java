@@ -1,4 +1,4 @@
-package opencvtest2;
+package MyPackage;
 
 import java.awt.AWTException;
 import java.awt.Color;
@@ -37,11 +37,10 @@ public class GetHandImage extends JFrame{
 		imgheight = image.getHeight(this);
 		p = new Point();
 		getLoc();
-		handwidth = getHandWidth();;
+		handwidth = getHandWidth();
 		handheight = getHandHeight();
-		redd = buff.getSubimage((int)p.getX(),(int) p.getY(), handwidth, handheight);
-//		Robot robot = new Robot();
-//		redd = robot.createScreenCapture.(new Rectangle((int)p.getX(),(int)p.getY(), handwidth, handheight));
+		redd = buff.getSubimage((int)p.getX(),(int)p.getY(), handwidth, handheight);
+		repaint();
 //		redd = new BufferedImage(handwidth, handheight, BufferedImage.TYPE_3BYTE_BGR);
 //
 //		int countx=0;
@@ -89,7 +88,7 @@ public class GetHandImage extends JFrame{
 			int blue = mycolor.getBlue();
 			int green = mycolor.getGreen();
 			if((red<=252 && red>=248)  && blue<=2 && green<=2) {
-				return x-((int)p.getX());
+				return x-((int)p.getX() + 2);
 			}
 		}
 		return count;
@@ -102,7 +101,7 @@ public class GetHandImage extends JFrame{
 			int blue = mycolor.getBlue();
 			int green = mycolor.getGreen();
 			if((red<=252 && red>=248)  && blue<=2 && green<=2) {
-				return y - ((int)p.getY());
+				return y - ((int)p.getY() + 2);
 			} 
 		}
 		return count;
