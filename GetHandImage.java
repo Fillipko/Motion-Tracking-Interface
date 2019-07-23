@@ -1,9 +1,12 @@
 package opencvtest2;
 
+import java.awt.AWTException;
 import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.Image;
 import java.awt.Point;
+import java.awt.Rectangle;
+import java.awt.Robot;
 import java.awt.image.BufferedImage;
 import java.awt.image.ImageObserver;
 import java.io.File;
@@ -22,9 +25,9 @@ public class GetHandImage extends JFrame{
 	private BufferedImage buff;
 	private int handwidth;
 	private int handheight;
-	private BufferedImage redd;
+	private Image redd;
 
-	public GetHandImage(Image image)
+	public GetHandImage(Image image) throws AWTException
 	{
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setVisible(true);
@@ -36,31 +39,29 @@ public class GetHandImage extends JFrame{
 		getLoc();
 		handwidth = getHandWidth();;
 		handheight = getHandHeight();
-		System.out.println(p.toString() + ", "
-				+ "handW " + handwidth + ", "
-				+ "handH " + handheight);
-		System.out.println(new Color(buff.getRGB(712, 678)));
-		redd = new BufferedImage(handwidth, handheight, BufferedImage.TYPE_INT_BGR);
-
-		int countx=0;
-		int county=0;
-		for(int y = (int)p.getY(); y < handheight + (int) p.getY(); y++) 
-		{
-			for(int x = (int)p.getX(); x < handwidth + (int)p.getX(); x++)
-			{
-				mycolor = new Color(buff.getRGB(x, y));
-				int red = mycolor.getRed();
-				int blue = mycolor.getBlue();
-				int green = mycolor.getGreen();
-				if(!(red<=252 && red>=248)  && blue<=2 && green<=2) {
-					redd.setRGB(countx, county, buff.getRGB(x, y));
-					countx++;
-				} else {
-					county++;
-					x = (int)p.getX();
-				}
-			}
-		}
+		Robot robot = new Robot();
+		redd = robot.createScreenCapture(new Rectangle((int)p.getX(),(int)p.getY(), handwidth, handheight));
+//		redd = new BufferedImage(handwidth, handheight, BufferedImage.TYPE_3BYTE_BGR);
+//
+//		int countx=0;
+//		int county=0;
+//		for(int y = (int)p.getY(); y < handheight + (int) p.getY(); y++) 
+//		{
+//			for(int x = (int)p.getX(); x < handwidth + (int)p.getX(); x++)
+//			{
+//				mycolor = new Color(buff.getRGB(x, y));
+//				int red = mycolor.getRed();
+//				int blue = mycolor.getBlue();
+//				int green = mycolor.getGreen();
+//				if(!(red<=252 && red>=248) && blue<=2 && green<=2) {
+//					redd.setRGB(countx, county, buff.getRGB(x, y));
+//					countx++;
+//				} else {
+//					county++;
+//					x = (int)p.getX();
+//				}
+//			}
+//		}
 	}
 	public void getLoc() {
 		for(int y = 0; y < imgheight; y++) 
@@ -80,7 +81,7 @@ public class GetHandImage extends JFrame{
 		}
 	}
 	public int getHandWidth() {
-		int count=0;
+		int count=1;
 		for(int x = (int)p.getX(); x < imgwidth; x++) {
 			mycolor = new Color(buff.getRGB(x, (int)p.getY()));
 			int red = mycolor.getRed();
@@ -93,7 +94,7 @@ public class GetHandImage extends JFrame{
 		return count;
 	}
 	public int getHandHeight() {
-		int count=0;
+		int count=1;
 		for(int y = (int) p.getY(); y < imgheight; y++) {
 			mycolor = new Color(buff.getRGB((int)p.getX(), y));
 			int red = mycolor.getRed();
@@ -107,14 +108,9 @@ public class GetHandImage extends JFrame{
 	}
 	public void paint(Graphics g)
 	{
-		try {
-			g.drawImage(ImageIO.read(new File("src/_DSC4053_out.jpg")), 0, 0, this);
-		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
+		g.drawImage(redd, 0, 0, this);
 	}
-	public static void main(String[] args) throws IOException {
+	public static void main(String[] args) throws IOException, AWTException {
 		new GetHandImage(ImageIO.read(new File("src/_DSC4053_out.jpg")));
 	}
 }
