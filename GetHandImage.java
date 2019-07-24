@@ -1,4 +1,4 @@
-package MyPackage;
+package opencvtest2;
 
 import java.awt.AWTException;
 import java.awt.Color;
@@ -9,8 +9,10 @@ import java.awt.Rectangle;
 import java.awt.Robot;
 import java.awt.image.BufferedImage;
 import java.awt.image.ImageObserver;
+import java.io.BufferedReader;
 import java.io.File;
 import java.io.IOException;
+import java.io.InputStreamReader;
 
 import javax.imageio.ImageIO;
 import javax.swing.JFrame;
@@ -27,7 +29,7 @@ public class GetHandImage extends JFrame{
 	private int handheight;
 	private Image redd;
 
-	public GetHandImage(Image image) throws AWTException
+	public GetHandImage(Image image) throws AWTException, IOException
 	{
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setVisible(true);
@@ -37,10 +39,22 @@ public class GetHandImage extends JFrame{
 		imgheight = image.getHeight(this);
 		p = new Point();
 		getLoc();
-		handwidth = getHandWidth();
+		handwidth = getHandWidth();;
 		handheight = getHandHeight();
-		redd = buff.getSubimage((int)p.getX(),(int)p.getY(), handwidth, handheight);
+		redd = buff.getSubimage((int)p.getX(),(int) p.getY(), handwidth, handheight);
 		repaint();
+		Runtime run = Runtime.getRuntime();
+		String[] nargs = {"echo", "hello world"};
+		Process p = run.exec(nargs);
+		BufferedReader is =
+				new BufferedReader(new InputStreamReader(p.getInputStream()));
+		String line;
+		
+		while ((line = is.readLine()) != null)
+			
+		System.out.println(line);
+//		Robot robot = new Robot();
+//		redd = robot.createScreenCapture.(new Rectangle((int)p.getX(),(int)p.getY(), handwidth, handheight));
 //		redd = new BufferedImage(handwidth, handheight, BufferedImage.TYPE_3BYTE_BGR);
 //
 //		int countx=0;
@@ -88,7 +102,7 @@ public class GetHandImage extends JFrame{
 			int blue = mycolor.getBlue();
 			int green = mycolor.getGreen();
 			if((red<=252 && red>=248)  && blue<=2 && green<=2) {
-				return x-((int)p.getX() + 2);
+				return x-((int)p.getX());
 			}
 		}
 		return count;
@@ -101,7 +115,7 @@ public class GetHandImage extends JFrame{
 			int blue = mycolor.getBlue();
 			int green = mycolor.getGreen();
 			if((red<=252 && red>=248)  && blue<=2 && green<=2) {
-				return y - ((int)p.getY() + 2);
+				return y - ((int)p.getY());
 			} 
 		}
 		return count;
