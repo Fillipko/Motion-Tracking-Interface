@@ -1,3 +1,5 @@
+package MyPackage;
+
 import java.awt.*;
 import java.awt.Image;
 import java.awt.event.ActionEvent;
@@ -17,6 +19,7 @@ public class DisplayWebcam extends JFrame implements ActionListener, ImageObserv
 	private VideoCap capture;
 	private JButton toggleCam;
 	private JButton teachNew;
+	private JButton about;
 	private boolean activeCamera;
 	private Thread t;
 	private Image blackscreen;
@@ -29,27 +32,26 @@ public class DisplayWebcam extends JFrame implements ActionListener, ImageObserv
 			public void paint(Graphics g) {
 				if(!activeCamera) 
 				{
-					g.drawImage(blackscreen, 0, 0, this);
+					g.drawImage(blackscreen, 0, -20, this);
 				}
 				if (activeCamera)
 				{
 					g = picturePanel.getGraphics();
-					g.drawImage((Image)capture.getOneFrame(), 0, 0, this);
+					g.drawImage(capture.getOneFrame(), 70, 100, this);
 				}
-				
 			}
-			
 		};
 		JPanel buttonPane = new JPanel();
 		contentPane = new JPanel();
 		capture = new VideoCap();
 		toggleCam = new JButton("Toggle Camera");
 		teachNew = new JButton("Teach New Gesture");
+		about = new JButton("About");
 		activeCamera = false;
-		blackscreen = ImageIO.read(new File("src/blackscreen.png"));
+		blackscreen = ImageIO.read(new File("Images/Motion Tracking Logo (1).jpg"));
 		counter = 0;
 
-		setTitle("Hand Tracking");
+		setTitle("Kine6 Interface");
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setSize(width, height);
 		setContentPane(contentPane);
@@ -66,6 +68,8 @@ public class DisplayWebcam extends JFrame implements ActionListener, ImageObserv
 		buttonPane.add(toggleCam, c);
 		c.gridx = 100;
 		buttonPane.add(teachNew, c);
+		c.gridx = 200;
+		buttonPane.add(about, c);
 		setContentPane(contentPane);
 		contentPane.setLayout(new BorderLayout());
 		contentPane.setBorder(new EmptyBorder(0, 0, 0, 0));
@@ -122,6 +126,10 @@ public class DisplayWebcam extends JFrame implements ActionListener, ImageObserv
 		{
 			
 		}
+		if(e.getSource().equals(about))
+		{
+			
+		}
 	}
 
 	public boolean imageUpdate(Image img, int infoflags, int x, int y, int width, int height)
@@ -137,7 +145,7 @@ public class DisplayWebcam extends JFrame implements ActionListener, ImageObserv
 			{
 				try 
 				{
-					new DisplayWebcam(800, 800);
+					new DisplayWebcam(800, 700);
 				}
 				catch (Exception e) 
 				{
