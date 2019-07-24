@@ -1,4 +1,4 @@
-package opencvtest2;
+package MyPackage;
 
 import java.awt.AWTException;
 import java.awt.Color;
@@ -8,7 +8,9 @@ import java.awt.Point;
 import java.awt.Rectangle;
 import java.awt.Robot;
 import java.awt.image.BufferedImage;
+import java.awt.image.DataBufferByte;
 import java.awt.image.ImageObserver;
+import java.awt.image.RenderedImage;
 import java.io.BufferedReader;
 import java.io.File;
 import java.io.IOException;
@@ -17,6 +19,11 @@ import java.io.InputStreamReader;
 import javax.imageio.ImageIO;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
+
+import org.opencv.core.Core;
+import org.opencv.core.CvType;
+import org.opencv.core.Mat;
+import org.opencv.imgcodecs.Imgcodecs;
 
 public class GetHandImage extends JFrame{
 
@@ -39,12 +46,15 @@ public class GetHandImage extends JFrame{
 		imgheight = image.getHeight(this);
 		p = new Point();
 		getLoc();
-		handwidth = getHandWidth();;
+		handwidth = getHandWidth();
 		handheight = getHandHeight();
 		redd = buff.getSubimage((int)p.getX(),(int) p.getY(), handwidth, handheight);
 		repaint();
+		ImageIO.write((RenderedImage)redd, "png", new File("saved.png"));
+//		Imgcodecs.imwrite("DSC4053_out.jpg", bufferedImageToMat((BufferedImage)redd));
+		System.out.println("done");
 		Runtime run = Runtime.getRuntime();
-		String[] nargs = {"echo", "hello world"};
+		String[] nargs = {"cmd.exe", "/C", "echo", "hello world"};
 		Process p = run.exec(nargs);
 		BufferedReader is =
 				new BufferedReader(new InputStreamReader(p.getInputStream()));
@@ -53,6 +63,9 @@ public class GetHandImage extends JFrame{
 		while ((line = is.readLine()) != null)
 			
 		System.out.println(line);
+		
+		
+		
 //		Robot robot = new Robot();
 //		redd = robot.createScreenCapture.(new Rectangle((int)p.getX(),(int)p.getY(), handwidth, handheight));
 //		redd = new BufferedImage(handwidth, handheight, BufferedImage.TYPE_3BYTE_BGR);
@@ -102,7 +115,7 @@ public class GetHandImage extends JFrame{
 			int blue = mycolor.getBlue();
 			int green = mycolor.getGreen();
 			if((red<=252 && red>=248)  && blue<=2 && green<=2) {
-				return x-((int)p.getX());
+				return x-((int)p.getX() + 2);
 			}
 		}
 		return count;
@@ -115,7 +128,7 @@ public class GetHandImage extends JFrame{
 			int blue = mycolor.getBlue();
 			int green = mycolor.getGreen();
 			if((red<=252 && red>=248)  && blue<=2 && green<=2) {
-				return y - ((int)p.getY());
+				return y - ((int)p.getY() + 2);
 			} 
 		}
 		return count;
@@ -124,7 +137,16 @@ public class GetHandImage extends JFrame{
 	{
 		g.drawImage(redd, 0, 0, this);
 	}
+	
+	public Mat bufferedImageToMat(BufferedImage bi) {
+		  Mat mat = new Mat(bi.getHeight(), bi.getWidth(), CvType.CV_8UC4);
+		  byte[] data = ((DataBufferByte) bi.getRaster().getDataBuffer()).getData();
+		  mat.put(0, 0, data);
+		  return mat;
+		}
+	
 	public static void main(String[] args) throws IOException, AWTException {
+		System.loadLibrary(Core.NATIVE_LIBRARY_NAME);
 		new GetHandImage(ImageIO.read(new File("src/_DSC4053_out.jpg")));
 	}
 }
