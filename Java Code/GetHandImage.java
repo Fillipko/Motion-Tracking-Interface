@@ -25,6 +25,8 @@ import org.opencv.core.CvType;
 import org.opencv.core.Mat;
 import org.opencv.imgcodecs.Imgcodecs;
 
+import java.lang.Process;
+
 public class GetHandImage extends JFrame{
 
 	private int imgwidth;
@@ -52,17 +54,29 @@ public class GetHandImage extends JFrame{
 		repaint();
 		ImageIO.write((RenderedImage)redd, "png", new File("saved.png"));
 //		Imgcodecs.imwrite("DSC4053_out.jpg", bufferedImageToMat((BufferedImage)redd));
-		System.out.println("done");
 		Runtime run = Runtime.getRuntime();
-		String[] nargs = {"cmd.exe", "/C", "echo", "hello world"};
+		String[] nargs = {"cmd.exe", "\"C:\\Users\\walkd\\Documents\\GitHub\\NWAWP-Hand-Tracker\\test NN\\baked2.py\"", "-i", 
+				"C:\\Users\\walkd\\Documents\\Eclipse Workspace\\Test2\\saved.png"};
 		Process p = run.exec(nargs);
 		BufferedReader is =
 				new BufferedReader(new InputStreamReader(p.getInputStream()));
 		String line;
 		
-		while ((line = is.readLine()) != null)
-			
-		System.out.println(line);
+		for(;;)
+		{
+			line = is.readLine();
+			System.out.println("Outside if: " + line);
+			if(line.equals("1"))
+			{
+				System.out.println("Inside if 1: " + line);
+				System.out.println("open");
+			}
+			else if(line.equals("0"))
+			{
+				System.out.println("Inside if 2: " + line);
+				System.out.println("closed");
+			}
+		}
 		
 		
 		
@@ -90,6 +104,7 @@ public class GetHandImage extends JFrame{
 //			}
 //		}
 	}
+	
 	public void getLoc() {
 		for(int y = 0; y < imgheight; y++) 
 		{

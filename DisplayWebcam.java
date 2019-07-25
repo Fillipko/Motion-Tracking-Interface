@@ -48,11 +48,7 @@ public class DisplayWebcam extends JFrame implements ActionListener, ImageObserv
 		teachNew = new JButton("Teach New Gesture");
 		about = new JButton("About");
 		activeCamera = false;
-<<<<<<< HEAD
 		blackscreen = ImageIO.read(new File("src/Motion Tracking Logo (1).jpg"));
-=======
-		blackscreen = ImageIO.read(new File("Images/Motion Tracking Logo (1).jpg"));
->>>>>>> 664b65a6ce757ffe57d6f86f8095ea2dea4e517b
 		counter = 0;
 
 		setTitle("Kine6 Interface");
