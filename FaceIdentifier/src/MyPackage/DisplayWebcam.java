@@ -14,6 +14,7 @@ import javax.swing.border.EmptyBorder;
 
 public class DisplayWebcam extends JFrame implements ActionListener, ImageObserver 
 {
+	private JFrame aboutPage;
 	private JPanel picturePanel;
 	private JPanel contentPane;
 	private VideoCap capture;
@@ -23,7 +24,7 @@ public class DisplayWebcam extends JFrame implements ActionListener, ImageObserv
 	private boolean activeCamera;
 	private Thread t;
 	private Image blackscreen;
-	private int counter; 
+	private int counter;
 
 	public DisplayWebcam(int width, int height) throws IOException
 	{
@@ -41,6 +42,7 @@ public class DisplayWebcam extends JFrame implements ActionListener, ImageObserv
 				}
 			}
 		};
+		JFrame aboutPage = new JFrame();
 		JPanel buttonPane = new JPanel();
 		contentPane = new JPanel();
 		capture = new VideoCap();
@@ -48,19 +50,21 @@ public class DisplayWebcam extends JFrame implements ActionListener, ImageObserv
 		teachNew = new JButton("Teach New Gesture");
 		about = new JButton("About");
 		activeCamera = false;
-<<<<<<< HEAD
-		blackscreen = ImageIO.read(new File("src/Motion Tracking Logo (1).jpg"));
-=======
 		blackscreen = ImageIO.read(new File("Images/Motion Tracking Logo (1).jpg"));
->>>>>>> 664b65a6ce757ffe57d6f86f8095ea2dea4e517b
 		counter = 0;
 
 		setTitle("Kine6 Interface");
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setSize(width, height);
+		setIconImage(ImageIO.read(new File("Images/Window Logo.jpg")));
 		setContentPane(contentPane);
 		setVisible(true);
+		
+		aboutPage.setSize(300, 200);
+		aboutPage.setVisible(false);
+		
 		toggleCam.addActionListener(this);
+		about.addActionListener(this);
 //		toggleCam.setPreferredSize(new Dimension(100, 100));
 		buttonPane.setLayout(new GridBagLayout());
 		GridBagConstraints c = new GridBagConstraints();
@@ -132,7 +136,7 @@ public class DisplayWebcam extends JFrame implements ActionListener, ImageObserv
 		}
 		if(e.getSource().equals(about))
 		{
-			
+
 		}
 	}
 
