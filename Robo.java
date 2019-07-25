@@ -1,4 +1,4 @@
-package opencvtest2;
+package MyPackage;
 import java.awt.AWTException;
 import java.awt.Graphics;
 import java.awt.Image;
@@ -11,54 +11,98 @@ import java.awt.image.ImageObserver;
 import java.io.IOException;
 
 import javax.swing.JFrame;
+import javax.swing.JPanel;
 
 import java.awt.Robot; 
 
-public class Robo extends JFrame
+public class Robo
 { 
 	private Robot robot;
-	public Robo() {
+
+	public Robo() throws InterruptedException{
 		try {
 			robot = new Robot();
 		} catch (AWTException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
+	}	
+	
+	
+	//alt tabs to the right
+	public void altTab()
+	{
+		robot.keyPress(KeyEvent.VK_ALT); 
+		robot.keyPress(KeyEvent.VK_TAB);
+		robot.keyRelease(KeyEvent.VK_ALT); 
+		robot.keyRelease(KeyEvent.VK_TAB);
 	}
-	public void Movemouse() throws InterruptedException {
-		System.out.println("helllooo");
-		robot.mouseMove(700,400); //move mouse
-		int button = InputEvent.getMaskForButton(1);
-		robot.mousePress(button);
-		robot.mouseRelease(button);
-		robot.keyPress(KeyEvent.VK_H); //type hello
-		Thread.sleep(500); 
-		robot.keyPress(KeyEvent.VK_E); 
-		Thread.sleep(500); 
-		robot.keyPress(KeyEvent.VK_L); 
-		Thread.sleep(500); 
-		robot.keyPress(KeyEvent.VK_L); 
-		Thread.sleep(500); 
-		robot.keyPress(KeyEvent.VK_O); 
-		System.out.println("helllooo");
+	
+	//alt tabs to the left
+	public void shiftAltTab()
+	{
+		robot.keyPress(KeyEvent.VK_SHIFT);
+		robot.keyPress(KeyEvent.VK_ALT);
+		robot.keyPress(KeyEvent.VK_TAB);
+		robot.keyRelease(KeyEvent.VK_SHIFT);
+		robot.keyRelease(KeyEvent.VK_ALT); 
+		robot.keyRelease(KeyEvent.VK_TAB);
 	}
-	public void Scroll() throws InterruptedException {
-		Thread.sleep(500); 
-		for(int i = 0; i < 20; i++){ //scroll
-			robot.mouseWheel(1);
-			try{ Thread.sleep(50); }catch(InterruptedException e){}
+	
+	public void zoomIn() { 
+		robot.keyPress(KeyEvent.VK_WINDOWS);
+		robot.keyPress(KeyEvent.VK_PLUS);
+		robot.keyPress(KeyEvent.VK_PLUS);
+		robot.keyRelease(KeyEvent.VK_WINDOWS);
+		robot.keyRelease(KeyEvent.VK_PLUS);
+		robot.keyRelease(KeyEvent.VK_PLUS);
+	}
+	
+	public void zoomOut()
+	{
+		robot.keyPress(KeyEvent.VK_WINDOWS);
+		robot.keyPress(KeyEvent.VK_MINUS);
+		robot.keyRelease(KeyEvent.VK_WINDOWS);
+		robot.keyRelease(KeyEvent.VK_MINUS);
+	}
+	
+	public void scrollDown()
+	{
+		for(int i = 0; i < 3; i++)
+		{
+			robot.mouseWheel(2);
+			try 
+			{
+				Thread.sleep(200);
+			}
+			catch (InterruptedException e)
+			{
+				e.printStackTrace();
+			}
 		}
 	}
-	public void paint(Graphics g) {
-		g.drawImage(Zoom(), 0, 0, 300, 300, (ImageObserver)this);
+	
+	public void scrollUp()
+	{
+		for(int i = 0; i < 3; i++)
+		{
+			robot.mouseWheel(-2);
+			try 
+			{
+				Thread.sleep(200);
+			}
+			catch (InterruptedException e)
+			{
+				e.printStackTrace();
+			}
+		}
 	}
-	public Image Zoom() { try {
-		Point p = MouseInfo.getPointerInfo().getLocation();
-		return robot.createScreenCapture(new Rectangle((int)p.getX(), (int) p.getY()));
-	} catch (Exception e) { 
-		System.err.println(e.getMessage()); 
-	}
-	return null; 
-
+	
+	public static void main(String[] args) throws InterruptedException
+	{
+		Robo robo = new Robo();
+		Thread.sleep(500);
+		robo.scrollUp();
+		Thread.sleep(500);
+		robo.scrollDown();		
 	}
 }
