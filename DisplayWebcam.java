@@ -1,11 +1,12 @@
 package MyPackage;
-
 import java.awt.*;
-import java.awt.Image;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.image.ImageObserver;
+import java.io.BufferedReader;
 import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileReader;
 import java.io.IOException;
 
 import javax.imageio.ImageIO;
@@ -18,46 +19,52 @@ public class DisplayWebcam extends JFrame implements ActionListener, ImageObserv
 	private JPanel contentPane;
 	private VideoCap capture;
 	private JButton toggleCam;
-	private JButton teachNew;
+	private JButton gestureList;
 	private JButton about;
 	private boolean activeCamera;
 	private Thread t;
-	private Image blackscreen;
+	private Image background;
 	private int counter; 
+	private GetHandImage getHand;
 
-	public DisplayWebcam(int width, int height) throws IOException
+	public DisplayWebcam(int width, int height) throws IOException, AWTException
 	{
 		picturePanel = new JPanel()
 		{
 			public void paint(Graphics g) {
 				if(!activeCamera) 
 				{
-					g.drawImage(blackscreen, 0, -20, this);
+					g.drawImage(background, 0, 0, this);
 				}
 				if (activeCamera)
 				{
 					g = picturePanel.getGraphics();
 					g.drawImage(capture.getOneFrame(), 70, 100, this);
 				}
+
 			}
+
 		};
+		picturePanel.setSize(new Dimension(500, 500));
 		JPanel buttonPane = new JPanel();
 		contentPane = new JPanel();
 		capture = new VideoCap();
 		toggleCam = new JButton("Toggle Camera");
-		teachNew = new JButton("Teach New Gesture");
+		gestureList = new JButton("Gesture List");
 		about = new JButton("About");
 		activeCamera = false;
-		blackscreen = ImageIO.read(new File("src/Motion Tracking Logo (1).jpg"));
+		background = ImageIO.read(new File("src/Motion Tracking Logo (1).jpg"));
 		counter = 0;
 
-		setTitle("Kine6 Interface");
+		this.setTitle("Kinè6 Interface");
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setSize(width, height);
 		setContentPane(contentPane);
 		setVisible(true);
+		setIconImage(ImageIO.read(new File("src/Window Logo.jpg")));
 		toggleCam.addActionListener(this);
-//		toggleCam.setPreferredSize(new Dimension(100, 100));
+		about.addActionListener(this);
+		gestureList.addActionListener(this);
 		buttonPane.setLayout(new GridBagLayout());
 		GridBagConstraints c = new GridBagConstraints();
 		c.gridx = 0;
@@ -67,7 +74,7 @@ public class DisplayWebcam extends JFrame implements ActionListener, ImageObserv
 		c.anchor = GridBagConstraints.SOUTH;
 		buttonPane.add(toggleCam, c);
 		c.gridx = 100;
-		buttonPane.add(teachNew, c);
+		buttonPane.add(gestureList, c);
 		c.gridx = 200;
 		buttonPane.add(about, c);
 		setContentPane(contentPane);
@@ -109,7 +116,7 @@ public class DisplayWebcam extends JFrame implements ActionListener, ImageObserv
 		}
 	}
 
-	public void actionPerformed(ActionEvent e) 
+	public void actionPerformed(ActionEvent e)
 	{
 		if (e.getSource().equals(toggleCam))
 		{
@@ -122,13 +129,28 @@ public class DisplayWebcam extends JFrame implements ActionListener, ImageObserv
 				activeCamera = true;	
 			}
 		}
-		if(e.getSource().equals(teachNew))
+		if(e.getSource().equals(gestureList))
 		{
-			
+			File actions = new File("src/actionsList"); 
+			BufferedReader br = null;
+			try {
+				br = new BufferedReader(new FileReader(actions));
+			} catch (FileNotFoundException e1) {
+				e1.printStackTrace();
+			}
+			String str = ""; 
+			String s = "";
+			try {
+				while ((str = br.readLine()) != null) 
+					s += str + "\n";
+			} catch (IOException e2) {
+				e2.printStackTrace();
+			} 
+			JOptionPane.showMessageDialog(this, s, "Gesture List", JOptionPane.INFORMATION_MESSAGE);
 		}
 		if(e.getSource().equals(about))
 		{
-			
+			JOptionPane.showMessageDialog(this, "Made by:\n Fillip Cannard\n Sidharth Daga\n Rowan Sheets\n David Zager\n Made Using OpenCV", "About", JOptionPane.INFORMATION_MESSAGE);
 		}
 	}
 
@@ -145,7 +167,7 @@ public class DisplayWebcam extends JFrame implements ActionListener, ImageObserv
 			{
 				try 
 				{
-					new DisplayWebcam(800, 700);
+					new DisplayWebcam(800, 800);
 				}
 				catch (Exception e) 
 				{
