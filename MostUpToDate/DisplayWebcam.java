@@ -54,7 +54,7 @@ public class DisplayWebcam extends JFrame implements ActionListener, ImageObserv
 		gestureList = new JButton("Gesture List");
 		about = new JButton("About");
 		activeCamera = false;
-		background = ImageIO.read(new File("src/Motion Tracking Logo (1).jpg"));
+		background = ImageIO.read(new File("src/MenuLogo.jpg"));
 		counter = 0;
 		getHand = new GetHandImage(currentImage);
 
@@ -64,7 +64,7 @@ public class DisplayWebcam extends JFrame implements ActionListener, ImageObserv
 		setSize(width, height);
 		setContentPane(contentPane);
 		setVisible(true);
-		setIconImage(ImageIO.read(new File("src/Window Logo.jpg")));
+		setIconImage(ImageIO.read(new File("src/IconLogo.jpg")));
 		toggleCam.addActionListener(this);
 		about.addActionListener(this);
 		gestureList.addActionListener(this);

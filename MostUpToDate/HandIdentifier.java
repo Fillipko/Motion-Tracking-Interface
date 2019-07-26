@@ -5,7 +5,6 @@ import org.opencv.core.MatOfRect;
 import org.opencv.core.Point;
 import org.opencv.core.Rect;
 import org.opencv.core.Scalar;
-import org.opencv.imgcodecs.Imgcodecs;
 import org.opencv.imgproc.Imgproc;
 import org.opencv.objdetect.CascadeClassifier;
 
@@ -22,7 +21,6 @@ public class HandIdentifier {
 		CascadeClassifier cc = new CascadeClassifier(xmlFileName);
 		MatOfRect handDetection = new MatOfRect();
 		cc.detectMultiScale(mat, handDetection);
-		Point p = new Point();
 		numOfFoundHands = Integer.parseInt(String.format("%d", handDetection.toArray().length));
 		for (Rect rect : handDetection.toArray()) {
 			Imgproc.rectangle(mat, new Point(rect.x, rect.y), new Point(rect.x + rect.width, rect.y + rect.height), new Scalar(0, 0, 250), rectThickness);
