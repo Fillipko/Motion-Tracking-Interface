@@ -1,19 +1,7 @@
 package MyPackage;
-import java.awt.AWTException;
-import java.awt.Graphics;
-import java.awt.Image;
-import java.awt.MouseInfo;
-import java.awt.Point;
-import java.awt.Rectangle;
-import java.awt.event.InputEvent;
+
+import java.awt.*;
 import java.awt.event.KeyEvent;
-import java.awt.image.ImageObserver;
-import java.io.IOException;
-
-import javax.swing.JFrame;
-import javax.swing.JPanel;
-
-import java.awt.Robot; 
 
 public class Robo extends Robot
 { 
