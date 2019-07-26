@@ -153,7 +153,8 @@ public class DisplayWebcam extends JFrame implements ActionListener, ImageObserv
 		}
 		if(e.getSource().equals(about))
 		{
-			JOptionPane.showMessageDialog(this, "Made by:\n Fillip Cannard\n Sidharth Daga\n Rowan Sheets\n David Zager\n Made Using OpenCV", "About", JOptionPane.INFORMATION_MESSAGE);
+			JOptionPane.showMessageDialog(this, "Made by:\n Fillip Cannard\n Sidharth Daga\n"
+					+ " Rowan Sheets\n David Zager\n Made Using OpenCV", "About", JOptionPane.INFORMATION_MESSAGE);
 		}
 	}
 
@@ -171,6 +172,8 @@ public class DisplayWebcam extends JFrame implements ActionListener, ImageObserv
 				try 
 				{
 					new DisplayWebcam(800, 800);
+					new Sound();
+					
 				}
 				catch (Exception e) 
 				{
