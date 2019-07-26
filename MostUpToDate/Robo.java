@@ -110,10 +110,10 @@ public class Robo extends Robot
 		keyRelease(KeyEvent.VK_WINDOWS);
 	}
 
-	public static void main(String[] args) throws InterruptedException, AWTException
-	{
-		Robo robo = new Robo();	
-		robo.sleep();
-		
-	}
+//	public static void main(String[] args) throws InterruptedException, AWTException
+//	{
+//		Robo robo = new Robo();	
+//		robo.sleep();
+//		
+//	}
 }
