@@ -18,6 +18,7 @@ public class GetHandImage implements ImageObserver
 	private int handwidth;
 	private int handheight;
 	private Image redd;
+	private Robo robo;
 
 	public GetHandImage(Image image) throws AWTException, IOException, InterruptedException
 	{
@@ -25,9 +26,14 @@ public class GetHandImage implements ImageObserver
 		imgwidth = image.getWidth(this);
 		imgheight = image.getHeight(this);
 		p = new Point();
+		robo = new Robo();
 		getLoc();
-		handwidth = getHandWidth();
-		handheight = getHandHeight();
+		handwidth = Math.abs(getHandWidth());
+		handheight = Math.abs(getHandHeight());
+		System.out.println("x: " + (int)p.getX());
+		System.out.println("y: " + (int) p.getY());
+		System.out.println("handW: " + handwidth);
+		System.out.println("handH: " + handheight);
 		redd = buff.getSubimage((int)p.getX(),(int) p.getY(), handwidth, handheight);
 		ImageIO.write((RenderedImage)redd, "png", new File("saved.png"));
 		Runtime run = Runtime.getRuntime();
@@ -36,7 +42,22 @@ public class GetHandImage implements ImageObserver
 				"\"C:\\Users\\walkd\\Documents\\GitHub\\NWAWP-Hand-Tracker\\test NN\\training_3\\cp.ckpt\"", };
 		runBatch();
 		int output = readBatch();
-		System.out.println(output);
+		if(output == 0)
+			System.out.println();
+		if(output == 1)
+			System.out.println();
+		if(output == 2)
+			System.out.println();
+		if(output == 3)
+			System.out.println();
+		if(output == 4)
+			System.out.println();
+		if(output == 5)
+			System.out.println();
+		if(output == 6)
+			System.out.println();
+		if(output == 7)
+			System.out.println();							
 	}
 
 	//returns the first line of the output file
@@ -99,6 +120,7 @@ public class GetHandImage implements ImageObserver
 		}
 		return count;
 	}
+	
 	public void paint(Graphics g)
 	{
 		g.drawImage(redd, 0, 0, this);
@@ -111,10 +133,10 @@ public class GetHandImage implements ImageObserver
 		return mat;
 	}
 
-	public static void main(String[] args) throws IOException, AWTException, InterruptedException {
-		System.loadLibrary(Core.NATIVE_LIBRARY_NAME);
-		new GetHandImage(ImageIO.read(new File("src/_DSC4053_out.jpg")));
-	}
+//	public static void main(String[] args) throws IOException, AWTException, InterruptedException {
+//		System.loadLibrary(Core.NATIVE_LIBRARY_NAME);
+//		new GetHandImage(ImageIO.read(new File("src/_DSC4053_out.jpg")));
+//	}
 
 	public boolean imageUpdate(Image img, int infoflags, int x, int y, int width, int height) {
 		return false;
