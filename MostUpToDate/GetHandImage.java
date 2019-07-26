@@ -5,13 +5,11 @@ import java.awt.Point;
 import java.awt.image.*;
 import java.io.*;
 import javax.imageio.ImageIO;
-import javax.swing.*;
 import org.opencv.core.*;
 import java.lang.Process;
 
-public class GetHandImage implements ImageObserver{
-
-	private Image image;
+public class GetHandImage implements ImageObserver
+{
 	private int imgwidth;
 	private int imgheight;
 	private Color mycolor;
@@ -20,16 +18,13 @@ public class GetHandImage implements ImageObserver{
 	private int handwidth;
 	private int handheight;
 	private Image redd;
-	private Robo robo;
 
 	public GetHandImage(Image image) throws AWTException, IOException, InterruptedException
 	{
-		this.image = image;
 		buff = (BufferedImage) image;
 		imgwidth = image.getWidth(this);
 		imgheight = image.getHeight(this);
 		p = new Point();
-		robo = new Robo();
 		getLoc();
 		handwidth = getHandWidth();
 		handheight = getHandHeight();
@@ -41,19 +36,7 @@ public class GetHandImage implements ImageObserver{
 				"\"C:\\Users\\walkd\\Documents\\GitHub\\NWAWP-Hand-Tracker\\test NN\\training_3\\cp.ckpt\"", };
 		runBatch();
 		int output = readBatch();
-		if(output == 1)
-		{
-			robo.zoomOut();
-		}
-		else if(output == 0)
-		{
-			robo.zoomIn();
-		}
-	}
-	
-	public void setImage(Image image)
-	{
-		this.image = image;
+		System.out.println(output);
 	}
 
 	//returns the first line of the output file

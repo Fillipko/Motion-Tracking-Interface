@@ -26,8 +26,9 @@ public class DisplayWebcam extends JFrame implements ActionListener, ImageObserv
 	private Image background;
 	private int counter; 
 	private GetHandImage getHand;
+	private Image currentImage;
 
-	public DisplayWebcam(int width, int height) throws IOException, AWTException
+	public DisplayWebcam(int width, int height) throws IOException, AWTException, InterruptedException
 	{
 		picturePanel = new JPanel()
 		{
@@ -38,22 +39,24 @@ public class DisplayWebcam extends JFrame implements ActionListener, ImageObserv
 				}
 				if (activeCamera)
 				{
+					currentImage = capture.getOneFrame();
 					g = picturePanel.getGraphics();
-					g.drawImage(capture.getOneFrame(), 70, 100, this);
+					g.drawImage(currentImage, 70, 100, this);
 				}
 			}
 		};
-		
+		capture = new VideoCap();
+		currentImage = capture.getOneFrame();
 		picturePanel.setSize(new Dimension(500, 500));
 		JPanel buttonPane = new JPanel();
 		contentPane = new JPanel();
-		capture = new VideoCap();
 		toggleCam = new JButton("Toggle Camera");
 		gestureList = new JButton("Gesture List");
 		about = new JButton("About");
 		activeCamera = false;
 		background = ImageIO.read(new File("src/Motion Tracking Logo (1).jpg"));
 		counter = 0;
+		getHand = new GetHandImage(currentImage);
 
 		setResizable(false);
 		this.setTitle("Kinè6 Interface");
