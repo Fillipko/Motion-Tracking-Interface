@@ -7,6 +7,7 @@ import java.io.*;
 import javax.imageio.ImageIO;
 import org.opencv.core.*;
 import java.lang.Process;
+import java.lang.reflect.Array;
 
 public class GetHandImage implements ImageObserver
 {
@@ -19,6 +20,8 @@ public class GetHandImage implements ImageObserver
 	private int handheight;
 	private Image redd;
 	private Robo robo;
+	private int handGesture;
+	private int[] array;
 
 	public GetHandImage(Image image) throws AWTException, IOException, InterruptedException
 	{
@@ -40,24 +43,45 @@ public class GetHandImage implements ImageObserver
 		String[] nargs = {"cmd.exe", "\"C:\\Users\\walkd\\Documents\\GitHub\\NWAWP-Hand-Tracker\\test NN\\baked2.py\"", "-i", 
 				"\"C:\\Users\\walkd\\Documents\\Eclipse Workspace\\Test2\\saved.png\"", "-c", 
 				"\"C:\\Users\\walkd\\Documents\\GitHub\\NWAWP-Hand-Tracker\\test NN\\training_3\\cp.ckpt\"", };
+		array = new int[7];
 		runBatch();
 		int output = readBatch();
-		if(output == 0)
-			System.out.println();
-		if(output == 1)
-			System.out.println();
-		if(output == 2)
-			System.out.println();
-		if(output == 3)
-			System.out.println();
-		if(output == 4)
-			System.out.println();
-		if(output == 5)
-			System.out.println();
-		if(output == 6)
-			System.out.println();
-		if(output == 7)
-			System.out.println();							
+		
+		//dont change, it works magically
+		for(int i = 0; i < array.length; i++)
+		{
+			if(output == i)
+			{
+				if (array[i] == 1) 
+				{
+					robo.zoomIn();
+				}
+				else if(array[i] == 2)
+				{
+					robo.zoomOut();
+				}
+				else if(array[i] == 3)
+				{
+					robo.scrollUp();
+				}
+				else if(array[i] == 4)
+				{
+					robo.scrollDown();	
+				}
+				else if(array[i] == 5)
+				{
+					robo.altTab();
+				}
+				else if(array[i] == 6)
+				{
+					robo.shiftAltTab();
+				}
+				else if(array[i] == 7)
+				{
+					robo.sleep();
+				}
+			}
+		}
 	}
 
 	//returns the first line of the output file
@@ -140,5 +164,10 @@ public class GetHandImage implements ImageObserver
 
 	public boolean imageUpdate(Image img, int infoflags, int x, int y, int width, int height) {
 		return false;
+	}
+	
+	public void setArray(int[] array) 
+	{
+		this.array = array;		
 	}
 }
