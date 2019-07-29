@@ -46,6 +46,8 @@ public class Interface implements ActionListener{
 	private int swipel;
 	private int sleep;
 
+	private int [] array;
+
 	public static void main(String[] args) {
 		new Interface();
 	}
@@ -116,36 +118,57 @@ public class Interface implements ActionListener{
 
 		String[]commands = {"Assign action for each command", "fist", "open hand", "thumbs up", "thumbs down", "point right" ,"point left", "cover camera"};
 		CommandList = new JComboBox(commands);
+
+		CommandList.setSelectedIndex(1);
+
 		CommandList.setVisible(true);
 		CommandList.setSize(100,100);
 		CommandList.addActionListener(this);
 		String[]commands1 = {"Assign action for each command", "fist", "open hand", "thumbs up", "thumbs down", "point right" ,"point left", "cover camera"};
 		CommandList1 = new JComboBox(commands1);
+
+		CommandList1.setSelectedIndex(2);
+
 		CommandList1.setVisible(true);
 		CommandList1.setSize(100,100);
 		CommandList1.addActionListener(this);
 		String[]commands2 = {"Assign action for each command", "fist", "open hand", "thumbs up", "thumbs down", "point right" ,"point left", "cover camera"};
 		CommandList2 = new JComboBox(commands2);
+
+		CommandList2.setSelectedIndex(3);
+
 		CommandList2.setVisible(true);
 		CommandList2.setSize(100,100);
 		CommandList2.addActionListener(this);
 		String[]commands3 = {"Assign action for each command", "fist", "open hand", "thumbs up", "thumbs down", "point right" ,"point left", "cover camera"};
 		CommandList3 = new JComboBox(commands3);
+
+		CommandList3.setSelectedIndex(4);
+
 		CommandList3.setVisible(true);
 		CommandList3.setSize(100,100);
 		CommandList3.addActionListener(this);
 		String[]commands4 = {"Assign action for each command", "fist", "open hand", "thumbs up", "thumbs down", "point right" ,"point left", "cover camera"};
 		CommandList4 = new JComboBox(commands4);
+
+		CommandList4.setSelectedIndex(5);
+
 		CommandList4.setVisible(true);
 		CommandList4.setSize(100,100);
 		CommandList4.addActionListener(this);
 		String[]commands5 = {"Assign action for each command", "fist", "open hand", "thumbs up", "thumbs down", "point right" ,"point left", "cover camera"};
 		CommandList5 = new JComboBox(commands5);
+
+		CommandList5.setSelectedIndex(6);
+
 		CommandList5.setVisible(true);
 		CommandList5.setSize(100,100);
 		CommandList5.addActionListener(this);
 		String[]commands6 = {"Assign action for each command", "fist", "open hand", "thumbs up", "thumbs down", "point right" ,"point left", "cover camera"};
 		CommandList6 = new JComboBox(commands6);
+
+		CommandList6.setSelectedIndex(7);
+
 		CommandList6.setVisible(true);
 		CommandList6.setSize(100,100);
 		CommandList6.addActionListener(this);
@@ -175,7 +198,7 @@ public class Interface implements ActionListener{
 	@Override
 	public void actionPerformed(ActionEvent e) {
 		Object source = e.getSource();
-		
+
 		if (source instanceof JComboBox) {
 			JComboBox cb = (JComboBox)e.getSource();
 			int selected = cb.getSelectedIndex();
@@ -215,7 +238,12 @@ public class Interface implements ActionListener{
 				if (count>0) {
 					set.setLabel("Error! Try again! Set");	
 				} else {
+
+					set.setLabel("Settings updated! Set");
+					this.array=array;
+
 					System.out.println("good work");
+
 				}
 			}
 			if (e.getSource().equals(reset)) {
@@ -230,5 +258,10 @@ public class Interface implements ActionListener{
 		}
 
 	}
+
+	public int[] getArray() {
+		return array;
+	}
+
 
 }
