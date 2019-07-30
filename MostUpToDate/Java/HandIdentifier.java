@@ -14,7 +14,8 @@ public class HandIdentifier {
 	private int count = 0;
 	private String[] xml;
 
-	public static void main(String[] args) {
+	static 
+	{
 		System.loadLibrary(Core.NATIVE_LIBRARY_NAME);
 	}
 
@@ -23,17 +24,13 @@ public class HandIdentifier {
 		xml = new String[]{ "cascadeFist", "cascadeOpen"};
 		for(int i = 0; i < xml.length; i++)
 		{
+			System.out.println(xml[i]);
 			CascadeClassifier cc = new CascadeClassifier("src/" + xml[i] + ".xml");
 			MatOfRect handDetection = new MatOfRect();
 			cc.detectMultiScale(mat, handDetection);
 			numOfFoundHands = Integer.parseInt(String.format("%d", handDetection.toArray().length));
 			for (Rect rect : handDetection.toArray()) {
 				Imgproc.rectangle(mat, new Point(rect.x, rect.y), new Point(rect.x + rect.width, rect.y + rect.height), new Scalar(0, 0, 250), rectThickness);
-				count++;
-			}
-			if(count != 0)
-			{
-				i = xml.length;
 			}
 		}
 		return mat;

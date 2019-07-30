@@ -83,25 +83,27 @@ public class Robo extends Robot
 	}
 
 	//puts computer to sleep
-	public void sleep() throws InterruptedException
+	public void sleep(boolean b) throws InterruptedException
 	{
+		if (b) {	
 		keyPress(KeyEvent.VK_WINDOWS);
-		keyPress(KeyEvent.VK_X);
-		keyRelease(KeyEvent.VK_X);
-		keyRelease(KeyEvent.VK_WINDOWS);
-		Thread.sleep(0, 1);
-		keyPress(KeyEvent.VK_U);
-		Thread.sleep(0, 1);
-		keyPress(KeyEvent.VK_S);
-		keyRelease(KeyEvent.VK_U);
-		keyRelease(KeyEvent.VK_S);
-		keyRelease(KeyEvent.VK_WINDOWS);
+			keyPress(KeyEvent.VK_X);
+			keyRelease(KeyEvent.VK_X);
+			keyRelease(KeyEvent.VK_WINDOWS);
+			Thread.sleep(0, 1);
+			keyPress(KeyEvent.VK_U);
+			Thread.sleep(0, 1);
+			keyPress(KeyEvent.VK_S);
+			keyRelease(KeyEvent.VK_U);
+			keyRelease(KeyEvent.VK_S);
+			keyRelease(KeyEvent.VK_WINDOWS);
+		}
 	}
 
-//	public static void main(String[] args) throws InterruptedException, AWTException
-//	{
-//		Robo robo = new Robo();	
-//		robo.sleep();
-//		
-//	}
+	//	public static void main(String[] args) throws InterruptedException, AWTException
+	//	{
+	//		Robo robo = new Robo();	
+	//		robo.sleep();
+	//		
+	//	}
 }

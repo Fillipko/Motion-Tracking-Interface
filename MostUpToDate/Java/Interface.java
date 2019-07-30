@@ -183,16 +183,21 @@ public class Interface extends JFrame implements ActionListener{
 				} else {
 					set.setLabel("Settings Updated!");
 					this.array = array;
+					for(int i = 0; i < array.length; i++)
+					{
+						System.out.print(array[i] + " ");
+					}
+					System.out.println();
 				}
 			}
 			if (e.getSource().equals(reset)) {
-				CommandList.setSelectedIndex(0);
-				CommandList1.setSelectedIndex(0);
-				CommandList2.setSelectedIndex(0);
-				CommandList3.setSelectedIndex(0);
-				CommandList4.setSelectedIndex(0);
-				CommandList5.setSelectedIndex(0);
-				CommandList6.setSelectedIndex(0);
+				CommandList.setSelectedIndex(1);
+				CommandList1.setSelectedIndex(2);
+				CommandList2.setSelectedIndex(3);
+				CommandList3.setSelectedIndex(4);
+				CommandList4.setSelectedIndex(5);
+				CommandList5.setSelectedIndex(6);
+				CommandList6.setSelectedIndex(7);
 			}
 		}
 	}

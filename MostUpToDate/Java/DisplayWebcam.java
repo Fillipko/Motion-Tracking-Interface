@@ -51,7 +51,7 @@ public class DisplayWebcam extends JFrame implements ActionListener, ImageObserv
 		JPanel buttonPane = new JPanel();
 		contentPane = new JPanel();
 		toggleCam = new JButton("Toggle Camera");
-		gestureList = new JButton("Gesture List");
+		gestureList = new JButton("Gesture Settings");
 		about = new JButton("About");
 		activeCamera = false;
 		background = ImageIO.read(new File("src/MenuLogo.jpg"));
@@ -115,9 +115,11 @@ public class DisplayWebcam extends JFrame implements ActionListener, ImageObserv
 				{
 					e.printStackTrace();
 				}
+				System.gc();
 			}
 		}
 	}
+	
 
 	public void actionPerformed(ActionEvent e)
 	{
@@ -134,22 +136,7 @@ public class DisplayWebcam extends JFrame implements ActionListener, ImageObserv
 		}
 		if(e.getSource().equals(gestureList))
 		{
-			File actions = new File("src/actionsList"); 
-			BufferedReader br = null;
-			try {
-				br = new BufferedReader(new FileReader(actions));
-			} catch (FileNotFoundException e1) {
-				e1.printStackTrace();
-			}
-			String str = ""; 
-			String s = "";
-			try {
-				while ((str = br.readLine()) != null) 
-					s += str + "\n";
-			} catch (IOException e2) {
-				e2.printStackTrace();
-			} 
-			JOptionPane.showMessageDialog(this, s, "Gesture List", JOptionPane.INFORMATION_MESSAGE);
+			new Interface();
 		}
 		if(e.getSource().equals(about))
 		{
