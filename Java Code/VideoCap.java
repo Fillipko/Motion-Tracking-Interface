@@ -1,3 +1,4 @@
+package MyPackage;
 import org.opencv.core.Core;
 import org.opencv.videoio.VideoCapture;
 import java.awt.image.*;
