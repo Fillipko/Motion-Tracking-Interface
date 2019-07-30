@@ -5,6 +5,7 @@ import org.opencv.core.MatOfRect;
 import org.opencv.core.Point;
 import org.opencv.core.Rect;
 import org.opencv.core.Scalar;
+import org.opencv.core.Size;
 import org.opencv.imgproc.Imgproc;
 import org.opencv.objdetect.CascadeClassifier;
 
@@ -20,21 +21,19 @@ public class HandIdentifier {
 
 	public Mat FindFace(Mat mat) 
 	{
-		xml = new String[]{ "cascadeFist", "cascadeOpen"};
+		xml = new String[]{"xml/closed.xml", "xml/open.xml"};
 		for(int i = 0; i < xml.length; i++)
 		{
-			CascadeClassifier cc = new CascadeClassifier("src/" + xml[i] + ".xml");
+			CascadeClassifier cc = new CascadeClassifier(xml[i]);
 			MatOfRect handDetection = new MatOfRect();
-			cc.detectMultiScale(mat, handDetection);
+			cc.detectMultiScale(mat, handDetection, 1.1, 4, 0, new Size(40.0, 40.0));
+			//cc.detectMultiScale(mat, handDetection);
 			numOfFoundHands = Integer.parseInt(String.format("%d", handDetection.toArray().length));
 			for (Rect rect : handDetection.toArray()) {
 				Imgproc.rectangle(mat, new Point(rect.x, rect.y), new Point(rect.x + rect.width, rect.y + rect.height), new Scalar(0, 0, 250), rectThickness);
 				count++;
 			}
-			if(count != 0)
-			{
-				i = xml.length;
-			}
+
 		}
 		return mat;
 	}
