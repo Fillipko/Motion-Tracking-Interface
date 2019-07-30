@@ -12,7 +12,6 @@ import org.opencv.objdetect.CascadeClassifier;
 public class HandIdentifier {
 	private int rectThickness = 3;
 	public int numOfFoundHands = 0;
-	private int count = 0;
 	private String[] xml;
 
 	static 
@@ -22,35 +21,22 @@ public class HandIdentifier {
 
 	public Mat FindFace(Mat mat) 
 	{
-		xml = new String[]{"xml/closed.xml", "xml/open.xml"};
+		xml = new String[]{"open", "closed"};
 		for(int i = 0; i < xml.length; i++)
 		{
-<<<<<<< HEAD
-			CascadeClassifier cc = new CascadeClassifier(xml[i]);
-=======
-			System.out.println(xml[i]);
-			CascadeClassifier cc = new CascadeClassifier("src/" + xml[i] + ".xml");
->>>>>>> f164932645914c73d93804cd65da06bc3347928a
-			MatOfRect handDetection = new MatOfRect();
-			cc.detectMultiScale(mat, handDetection, 1.1, 4, 0, new Size(40.0, 40.0));
-			//cc.detectMultiScale(mat, handDetection);
-			numOfFoundHands = Integer.parseInt(String.format("%d", handDetection.toArray().length));
-			for (Rect rect : handDetection.toArray()) {
-				Imgproc.rectangle(mat, new Point(rect.x, rect.y), new Point(rect.x + rect.width, rect.y + rect.height), new Scalar(0, 0, 250), rectThickness);
-<<<<<<< HEAD
-				count++;
+			try {
+				CascadeClassifier cc = new CascadeClassifier("xml/" + xml[i] + ".xml");
+				MatOfRect handDetection = new MatOfRect();
+				cc.detectMultiScale(mat, handDetection, 1.1, 4, 0, new Size(40.0, 40.0));
+				numOfFoundHands = Integer.parseInt(String.format("%d", handDetection.toArray().length));
+				for (Rect rect : handDetection.toArray()) {
+					Imgproc.rectangle(mat, new Point(rect.x, rect.y), new Point(rect.x + rect.width, rect.y + rect.height), new Scalar(0, 0, 250), rectThickness);
+				}
+			} catch (Exception e)
+			{
+				
 			}
-
-=======
-			}
->>>>>>> f164932645914c73d93804cd65da06bc3347928a
 		}
 		return mat;
 	}
-
-	public int getThickness()
-	{
-		return rectThickness;
-	}
-
 }

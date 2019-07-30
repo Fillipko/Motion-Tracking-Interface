@@ -16,17 +16,17 @@ public class Mat2Image
 
     private Mat mat = new Mat();
     private BufferedImage buffImg;
-    private HandIdentifier faceIdentifier = new HandIdentifier();
+    private HandIdentifier handIdentifier = new HandIdentifier();
 
     public Mat2Image()
     {
-    	faceIdentifier.FindFace(mat);
+    	handIdentifier.FindFace(mat);
     	//System.out.println("Faces Found: " + faceIdentifier.numOfFoundFaces);
     }
 
     public Mat2Image(Mat mat)
     {
-        getSpace(faceIdentifier.FindFace(mat));
+        getSpace(handIdentifier.FindFace(mat));
     }
 
     public void getSpace(Mat mat)
@@ -51,7 +51,7 @@ public class Mat2Image
 
     BufferedImage getImage(Mat mat)
     {
-        getSpace(faceIdentifier.FindFace(mat));
+        getSpace(handIdentifier.FindFace(mat));
         WritableRaster raster = buffImg.getRaster();
         DataBufferByte dataBuffer = (DataBufferByte) raster.getDataBuffer();
         byte[] data = dataBuffer.getData();
