@@ -43,10 +43,47 @@ public class GetHandImage implements ImageObserver
 		String[] nargs = {"cmd.exe", "\"C:\\Users\\walkd\\Documents\\GitHub\\NWAWP-Hand-Tracker\\test NN\\baked2.py\"", "-i", 
 				"\"C:\\Users\\walkd\\Documents\\Eclipse Workspace\\Test2\\saved.png\"", "-c", 
 				"\"C:\\Users\\walkd\\Documents\\GitHub\\NWAWP-Hand-Tracker\\test NN\\training_3\\cp.ckpt\"", };
-		array = new int[7];
+		array = new int[8];
+
+	}
+
+	public boolean checkSleep()
+	{
+		int tolerance = 50;
+		mycolor = new Color(buff.getRGB(imgheight / 2, imgwidth / 2));
+		int redCheck = mycolor.getRed();
+		int blueCheck = mycolor.getBlue();
+		int greenCheck = mycolor.getGreen();
+		int count =0;
+		boolean flag=false;
+		for(int y = 0; y < imgheight; y++) 
+		{
+			for(int x = 0; x < imgwidth; x++)
+			{
+				mycolor = new Color(buff.getRGB(x, y));
+				int red = mycolor.getRed();
+				int blue = mycolor.getBlue();
+				int green = mycolor.getGreen();
+				if(!((red< redCheck + tolerance && red> redCheck - tolerance) && 
+						(blue< blueCheck + tolerance && blue> blueCheck - tolerance) && 
+						(green< greenCheck + tolerance && green> greenCheck - tolerance)))
+				{
+					count++;
+				}	
+			}
+		}
+		System.out.println(count);
+		if (count < 150) {
+			flag = true;
+		}
+		return flag;
+	}
+
+	public void update(Image img) throws InterruptedException, IOException
+	{
+		buff = (BufferedImage) img;
 		runBatch();
 		int output = readBatch();
-		
 		//dont change, it works magically
 		for(int i = 0; i < array.length; i++)
 		{
@@ -78,7 +115,8 @@ public class GetHandImage implements ImageObserver
 				}
 				else if(array[i] == 7)
 				{
-					robo.sleep();
+
+					robo.sleep(checkSleep());
 				}
 			}
 		}
@@ -118,6 +156,7 @@ public class GetHandImage implements ImageObserver
 			}
 		}
 	}
+
 	public int getHandWidth() {
 		int count=1;
 		for(int x = (int)p.getX(); x < imgwidth; x++) {
@@ -144,7 +183,7 @@ public class GetHandImage implements ImageObserver
 		}
 		return count;
 	}
-	
+
 	public void paint(Graphics g)
 	{
 		g.drawImage(redd, 0, 0, this);
@@ -157,17 +196,22 @@ public class GetHandImage implements ImageObserver
 		return mat;
 	}
 
-//	public static void main(String[] args) throws IOException, AWTException, InterruptedException {
-//		System.loadLibrary(Core.NATIVE_LIBRARY_NAME);
-//		new GetHandImage(ImageIO.read(new File("src/_DSC4053_out.jpg")));
-//	}
+	//	public static void main(String[] args) throws IOException, AWTException, InterruptedException {
+	//		System.loadLibrary(Core.NATIVE_LIBRARY_NAME);
+	//		new GetHandImage(ImageIO.read(new File("src/_DSC4053_out.jpg")));
+	//	}
 
 	public boolean imageUpdate(Image img, int infoflags, int x, int y, int width, int height) {
 		return false;
 	}
-	
+
 	public void setArray(int[] array) 
 	{
 		this.array = array;		
+	}
+
+	public void setImage(Image img) 
+	{
+		this.buff = (BufferedImage) img;
 	}
 }
