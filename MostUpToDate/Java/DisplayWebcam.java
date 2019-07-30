@@ -1,4 +1,4 @@
-package opencvtest2;
+package MyPackage;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -63,7 +63,7 @@ public class DisplayWebcam extends JFrame implements ActionListener, ImageObserv
 		instructions = new JButton("Instructions");
 
 		setResizable(false);
-		this.setTitle("KinÃ¨6 Interface");
+		this.setTitle("Kinè6 Interface");
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setSize(width, height);
 		setContentPane(contentPane);
@@ -122,9 +122,11 @@ public class DisplayWebcam extends JFrame implements ActionListener, ImageObserv
 				{
 					e.printStackTrace();
 				}
+				System.gc();
 			}
 		}
 	}
+	
 
 	public void actionPerformed(ActionEvent e)
 	{
@@ -169,7 +171,7 @@ public class DisplayWebcam extends JFrame implements ActionListener, ImageObserv
 			{
 				try 
 				{
-					new DisplayWebcam(1280, 780);
+					new DisplayWebcam(800, 800);
 					new Sound();
 					
 				}
