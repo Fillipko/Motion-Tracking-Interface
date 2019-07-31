@@ -14,10 +14,11 @@ public class Interface extends JFrame implements ActionListener{
 	private int [] array;
 	private String[] commands;
 
-	public static void main(String[] args) {
-		new Interface();
-	}
-	public Interface() {
+//	public static void main(String[] args) {
+//		new Interface();
+//	}
+	
+	public Interface(GetHandImage getHand) {
 		setTitle("Hand Tracking");
 		setSize(500,500);
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -28,7 +29,7 @@ public class Interface extends JFrame implements ActionListener{
 		reset.addActionListener(this);
 		add(set);
 		add(reset);
-		
+		array = new int[] {1,2,3,4,5,6,7};
 		fist = 1;
 		openH = 2;
 		thumbU = 3;
@@ -38,82 +39,47 @@ public class Interface extends JFrame implements ActionListener{
 		coverCam= 7;
 		
 		commands = new String[]{"Assign action for each gesture", "Zoom In", "Zoom Out", "Scroll Up", "Scroll Down", "Swipe Right", "Swipe Left", "Sleep"};
-		
 		panel = new JPanel();
-		panel.setSize(500, 70);
-		
 		panel1 = new JPanel();
-		panel1.setSize(500, 70);
-		
 		panel2 = new JPanel();
-		panel2.setSize(500, 70);
-		
 		panel3 = new JPanel();
-		panel3.setSize(500, 70);
-		
 		panel4 = new JPanel();
-		panel4.setSize(500, 70);
-		
 		panel5 = new JPanel();
-		panel5.setSize(500, 70);
-		
 		panel6 = new JPanel();
-		panel6.setSize(500, 70);
-		
 		label = new JLabel("Closed Hand");
-		label.setSize(100, 100);
-		
 		label1 = new JLabel("Open Hand");
-		label1.setSize(100, 100);
-
 		label2 = new JLabel("Thumbs Up");
-		label2.setSize(100, 100);
-
 		label3 = new JLabel("Thumbs Down");
-		label3.setSize(100, 100);
-
 		label4 = new JLabel("Point Right");
-		label4.setSize(100, 100);
-
 		label5 = new JLabel("Point Left");
-		label5.setSize(100, 100);
-
 		label6 = new JLabel("Cover Camera");
-		label6.setSize(100, 100);		
 				
 		CommandList = new JComboBox(commands);
 		CommandList.setSelectedIndex(1);
-		CommandList.setSize(100,100);
 		CommandList.addActionListener(this);
 	
 		CommandList1 = new JComboBox(commands);
 		CommandList1.setSelectedIndex(2);
-		CommandList1.setSize(100,100);
 		CommandList1.addActionListener(this);
 		
 		CommandList2 = new JComboBox(commands);
 		CommandList2.setSelectedIndex(3);
-		CommandList2.setSize(100,100);
 		CommandList2.addActionListener(this);
 		
 		CommandList3 = new JComboBox(commands);
 		CommandList3.setSelectedIndex(4);
-		CommandList3.setSize(100,100);
 		CommandList3.addActionListener(this);
 		
 		CommandList4 = new JComboBox(commands);
 		CommandList4.setSelectedIndex(5);
-		CommandList4.setSize(100,100);
 		CommandList4.addActionListener(this);
 		
 		CommandList5 = new JComboBox(commands);
 		CommandList5.setSelectedIndex(6);
-		CommandList5.setSize(100,100);
 		CommandList5.addActionListener(this);
 		
 		CommandList6 = new JComboBox(commands);
 		CommandList6.setSelectedIndex(7);
-		CommandList6.setSize(100,100);
 		CommandList6.addActionListener(this);
 		
 		panel.add(label);
@@ -138,6 +104,7 @@ public class Interface extends JFrame implements ActionListener{
 		add(panel5);
 		add(panel6);
 		setVisible(true);
+		getHand.setArray(array);
 	}
 	
 	public void actionPerformed(ActionEvent e) {
@@ -181,13 +148,13 @@ public class Interface extends JFrame implements ActionListener{
 				if (count > 0) {
 					JOptionPane.showMessageDialog(this, "Please assign only one command for each gesture", "Error!", JOptionPane.ERROR_MESSAGE);
 				} else {
-					set.setLabel("Settings Updated!");
-					this.array = array;
 					for(int i = 0; i < array.length; i++)
 					{
 						System.out.print(array[i] + " ");
 					}
 					System.out.println();
+					set.setText("Settings Updated!");
+					this.array = array;
 				}
 			}
 			if (e.getSource().equals(reset)) {
