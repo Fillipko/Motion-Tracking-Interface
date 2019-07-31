@@ -1,4 +1,4 @@
-package MyPackage;
+package opencvtest2;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -12,6 +12,8 @@ import java.io.IOException;
 import javax.imageio.ImageIO;
 import javax.swing.*;
 import javax.swing.border.EmptyBorder;
+
+import org.opencv.core.Core;
 
 public class DisplayWebcam extends JFrame implements ActionListener, ImageObserver 
 {
@@ -27,6 +29,7 @@ public class DisplayWebcam extends JFrame implements ActionListener, ImageObserv
 	private int counter; 
 	private GetHandImage getHand;
 	private Image currentImage;
+	private JButton instructions;
 
 	public DisplayWebcam(int width, int height) throws IOException, AWTException, InterruptedException
 	{
@@ -57,15 +60,17 @@ public class DisplayWebcam extends JFrame implements ActionListener, ImageObserv
 		background = ImageIO.read(new File("src/MenuLogo.jpg"));
 		counter = 0;
 		getHand = new GetHandImage(currentImage);
+		instructions = new JButton("Instructions");
 
 		setResizable(false);
-		this.setTitle("Kinè6 Interface");
+		this.setTitle("KinÃ¨6 Interface");
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setSize(width, height);
 		setContentPane(contentPane);
 		setVisible(true);
 		setIconImage(ImageIO.read(new File("src/IconLogo.jpg")));
 		toggleCam.addActionListener(this);
+		instructions.addActionListener(this);
 		about.addActionListener(this);
 		gestureList.addActionListener(this);
 		buttonPane.setLayout(new GridBagLayout());
@@ -75,10 +80,12 @@ public class DisplayWebcam extends JFrame implements ActionListener, ImageObserv
 		c.gridheight = 100;
 		c.gridwidth = 100;
 		c.anchor = GridBagConstraints.SOUTH;
-		buttonPane.add(toggleCam, c);
+		buttonPane.add(instructions, c);
 		c.gridx = 100;
 		buttonPane.add(gestureList, c);
 		c.gridx = 200;
+		buttonPane.add(toggleCam, c);
+		c.gridx = 300;
 		buttonPane.add(about, c);
 		setContentPane(contentPane);
 		contentPane.setLayout(new BorderLayout());
@@ -115,11 +122,9 @@ public class DisplayWebcam extends JFrame implements ActionListener, ImageObserv
 				{
 					e.printStackTrace();
 				}
-				System.gc();
 			}
 		}
 	}
-	
 
 	public void actionPerformed(ActionEvent e)
 	{
@@ -143,6 +148,11 @@ public class DisplayWebcam extends JFrame implements ActionListener, ImageObserv
 			JOptionPane.showMessageDialog(this, "Made by:\n Fillip Cannard\n Sidharth Daga\n"
 					+ " Rowan Sheets\n David Zager\n Made Using OpenCV", "About", JOptionPane.INFORMATION_MESSAGE);
 		}
+		if(e.getSource().equals(instructions))
+		{
+			JOptionPane.showMessageDialog(this, "This applications lets you use your hand to control your computer! \n"
+					+ " To begin, go to 'Gesture settings' and customize your experience.\n", "Then, click 'Toggle Camera' to begin!", JOptionPane.INFORMATION_MESSAGE);
+		}
 	}
 
 	public boolean imageUpdate(Image img, int infoflags, int x, int y, int width, int height)
@@ -152,13 +162,14 @@ public class DisplayWebcam extends JFrame implements ActionListener, ImageObserv
 
 	public static void main(String[] args) 
 	{
+		System.loadLibrary(Core.NATIVE_LIBRARY_NAME);
 		EventQueue.invokeLater(new Runnable() 
 		{
 			public void run() 
 			{
 				try 
 				{
-					new DisplayWebcam(800, 800);
+					new DisplayWebcam(1280, 780);
 					new Sound();
 					
 				}
