@@ -1,5 +1,5 @@
 # Kinѐ6 Interface
-NWAPW Project
+NWAPW Project (Summer of 2019)
 
 
 
