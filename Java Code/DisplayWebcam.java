@@ -1,17 +1,15 @@
 package MyPackage;
 import java.awt.*;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
+import java.awt.event.*;
 import java.awt.image.ImageObserver;
-import java.io.BufferedReader;
-import java.io.File;
-import java.io.FileNotFoundException;
-import java.io.FileReader;
-import java.io.IOException;
-
+import java.io.*;
 import javax.imageio.ImageIO;
 import javax.swing.*;
 import javax.swing.border.EmptyBorder;
+<<<<<<< Updated upstream:Java Code/DisplayWebcam.java
+=======
+import org.opencv.core.Core;
+>>>>>>> Stashed changes:MostUpToDate/Java/DisplayWebcam.java
 
 public class DisplayWebcam extends JFrame implements ActionListener, ImageObserver 
 {
@@ -59,7 +57,11 @@ public class DisplayWebcam extends JFrame implements ActionListener, ImageObserv
 		getHand = new GetHandImage(currentImage);
 
 		setResizable(false);
+<<<<<<< Updated upstream:Java Code/DisplayWebcam.java
 		this.setTitle("Kinè6 Interface");
+=======
+		this.setTitle("Kine6 Interface");
+>>>>>>> Stashed changes:MostUpToDate/Java/DisplayWebcam.java
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setSize(width, height);
 		setContentPane(contentPane);
@@ -136,13 +138,21 @@ public class DisplayWebcam extends JFrame implements ActionListener, ImageObserv
 		}
 		if(e.getSource().equals(gestureList))
 		{
-			new Interface();
+			new Interface(getHand);
 		}
 		if(e.getSource().equals(about))
 		{
 			JOptionPane.showMessageDialog(this, "Made by:\n Fillip Cannard\n Sidharth Daga\n"
 					+ " Rowan Sheets\n David Zager\n Made Using OpenCV", "About", JOptionPane.INFORMATION_MESSAGE);
 		}
+<<<<<<< Updated upstream:Java Code/DisplayWebcam.java
+=======
+		if(e.getSource().equals(instructions))
+		{
+			JOptionPane.showMessageDialog(this, "This applications lets you use your hand to control your computer! \n"
+					+ " To begin, go to 'Gesture settings' and customize your experience.\nThen, click 'Toggle Camera' to begin!", "Instructions", JOptionPane.INFORMATION_MESSAGE);
+		}
+>>>>>>> Stashed changes:MostUpToDate/Java/DisplayWebcam.java
 	}
 
 	public boolean imageUpdate(Image img, int infoflags, int x, int y, int width, int height)

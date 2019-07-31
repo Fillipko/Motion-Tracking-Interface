@@ -33,17 +33,13 @@ public class GetHandImage implements ImageObserver
 		getLoc();
 		handwidth = Math.abs(getHandWidth());
 		handheight = Math.abs(getHandHeight());
-		System.out.println("x: " + (int)p.getX());
-		System.out.println("y: " + (int) p.getY());
-		System.out.println("handW: " + handwidth);
-		System.out.println("handH: " + handheight);
 		redd = buff.getSubimage((int)p.getX(),(int) p.getY(), handwidth, handheight);
 		ImageIO.write((RenderedImage)redd, "png", new File("saved.png"));
 		Runtime run = Runtime.getRuntime();
 		String[] nargs = {"cmd.exe", "\"C:\\Users\\walkd\\Documents\\GitHub\\NWAWP-Hand-Tracker\\test NN\\baked2.py\"", "-i", 
 				"\"C:\\Users\\walkd\\Documents\\Eclipse Workspace\\Test2\\saved.png\"", "-c", 
 				"\"C:\\Users\\walkd\\Documents\\GitHub\\NWAWP-Hand-Tracker\\test NN\\training_3\\cp.ckpt\"", };
-		array = new int[8];
+		array = new int[]{0,1,2,3,4,5,6};
 
 	}
 
@@ -82,7 +78,7 @@ public class GetHandImage implements ImageObserver
 	public void update(Image img) throws InterruptedException, IOException
 	{
 		buff = (BufferedImage) img;
-		runBatch();
+		//runBatch();
 		int output = readBatch();
 		//dont change, it works magically
 		for(int i = 0; i < array.length; i++)
@@ -127,7 +123,9 @@ public class GetHandImage implements ImageObserver
 	{
 		File output = new File("C:\\Users\\walkd\\Documents\\Eclipse Workspace\\Test2\\src\\output.txt");
 		BufferedReader br = new BufferedReader(new FileReader(output)); 
-		return Integer.parseInt(br.readLine());
+		int read = Character.getNumericValue(br.read());
+		br.close();
+		return read;
 	}
 
 	//runs batch file
