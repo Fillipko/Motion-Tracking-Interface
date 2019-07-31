@@ -1,4 +1,4 @@
-# Motion-Tracking-Interface
+# Kinѐ6 Interface
 NWAPW Project
 
 
