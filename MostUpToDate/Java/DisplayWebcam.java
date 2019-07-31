@@ -1,18 +1,11 @@
 package MyPackage;
 import java.awt.*;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
+import java.awt.event.*;
 import java.awt.image.ImageObserver;
-import java.io.BufferedReader;
-import java.io.File;
-import java.io.FileNotFoundException;
-import java.io.FileReader;
-import java.io.IOException;
-
+import java.io.*;
 import javax.imageio.ImageIO;
 import javax.swing.*;
 import javax.swing.border.EmptyBorder;
-
 import org.opencv.core.Core;
 
 public class DisplayWebcam extends JFrame implements ActionListener, ImageObserver 
@@ -143,7 +136,7 @@ public class DisplayWebcam extends JFrame implements ActionListener, ImageObserv
 		}
 		if(e.getSource().equals(gestureList))
 		{
-			new Interface();
+			new Interface(getHand);
 		}
 		if(e.getSource().equals(about))
 		{
@@ -154,6 +147,12 @@ public class DisplayWebcam extends JFrame implements ActionListener, ImageObserv
 		{
 			JOptionPane.showMessageDialog(this, "This applications lets you use your hand to control your computer! \n"
 					+ " To begin, go to 'Gesture settings' and customize your experience.\n", "Then, click 'Toggle Camera' to begin!", JOptionPane.INFORMATION_MESSAGE);
+		}
+
+		if(e.getSource().equals(instructions))
+		{
+			JOptionPane.showMessageDialog(this, "This applications lets you use your hand to control your computer! \n"
+					+ " To begin, go to 'Gesture settings' and customize your experience.\nThen, click 'Toggle Camera' to begin!", "Instructions", JOptionPane.INFORMATION_MESSAGE);
 		}
 	}
 
