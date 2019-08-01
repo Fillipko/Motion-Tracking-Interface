@@ -56,7 +56,7 @@ public class DisplayWebcam extends JFrame implements ActionListener, ImageObserv
 		instructions = new JButton("Instructions");
 
 		setResizable(false);
-		this.setTitle("Kinè6 Interface");
+		this.setTitle("Kine6 Interface");
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setSize(width, height);
 		setContentPane(contentPane);
@@ -107,6 +107,17 @@ public class DisplayWebcam extends JFrame implements ActionListener, ImageObserv
 			while(true)
 			{
 				repaint();
+				try {
+					getHand.update(currentImage);
+				} catch (InterruptedException | IOException e2) {
+					// TODO Auto-generated catch block
+					e2.printStackTrace();
+				}
+				try {
+					getHand.update(currentImage);
+				} catch (InterruptedException | IOException e1) {
+					e1.printStackTrace();
+				}
 				try 
 				{ 
 					Thread.sleep(33);
@@ -119,7 +130,6 @@ public class DisplayWebcam extends JFrame implements ActionListener, ImageObserv
 			}
 		}
 	}
-	
 
 	public void actionPerformed(ActionEvent e)
 	{
@@ -142,10 +152,6 @@ public class DisplayWebcam extends JFrame implements ActionListener, ImageObserv
 		{
 			JOptionPane.showMessageDialog(this, "Made by:\n Fillip Cannard\n Sidharth Daga\n"
 					+ " Rowan Sheets\n David Zager\n Made Using OpenCV", "About", JOptionPane.INFORMATION_MESSAGE);
-		}
-
-
-
 		}
 		if(e.getSource().equals(instructions))
 		{

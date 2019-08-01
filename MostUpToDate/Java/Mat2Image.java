@@ -21,7 +21,6 @@ public class Mat2Image
     public Mat2Image()
     {
     	handIdentifier.FindFace(mat);
-    	//System.out.println("Faces Found: " + faceIdentifier.numOfFoundFaces);
     }
 
     public Mat2Image(Mat mat)

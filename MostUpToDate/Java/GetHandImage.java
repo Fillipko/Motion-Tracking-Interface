@@ -22,7 +22,9 @@ public class GetHandImage implements ImageObserver
 	private Robo robo;
 	private int handGesture;
 	private int[] array;
-
+	private BufferedWriter out;
+	private BufferedReader inp;
+	
 	public GetHandImage(Image image) throws AWTException, IOException, InterruptedException
 	{
 		buff = (BufferedImage) image;
@@ -33,18 +35,27 @@ public class GetHandImage implements ImageObserver
 		getLoc();
 		handwidth = Math.abs(getHandWidth());
 		handheight = Math.abs(getHandHeight());
-		System.out.println("x: " + (int)p.getX());
-		System.out.println("y: " + (int) p.getY());
-		System.out.println("handW: " + handwidth);
-		System.out.println("handH: " + handheight);
 		redd = buff.getSubimage((int)p.getX(),(int) p.getY(), handwidth, handheight);
 		ImageIO.write((RenderedImage)redd, "png", new File("saved.png"));
 		Runtime run = Runtime.getRuntime();
 		String[] nargs = {"cmd.exe", "\"C:\\Users\\walkd\\Documents\\GitHub\\NWAWP-Hand-Tracker\\test NN\\baked2.py\"", "-i", 
 				"\"C:\\Users\\walkd\\Documents\\Eclipse Workspace\\Test2\\saved.png\"", "-c", 
 				"\"C:\\Users\\walkd\\Documents\\GitHub\\NWAWP-Hand-Tracker\\test NN\\training_3\\cp.ckpt\"", };
-		array = new int[8];
-
+		array = new int[]{0,1,2,3,4,5,6};
+		runBatch();
+	}
+	
+	public void writeToBatch() 
+	{
+		try
+		{
+//			out.write("saved.png");
+//			out.flush();
+//			System.out.println("wrote");
+		}
+		catch (Exception e)
+		{
+		}
 	}
 
 	public boolean checkSleep()
@@ -82,7 +93,12 @@ public class GetHandImage implements ImageObserver
 	public void update(Image img) throws InterruptedException, IOException
 	{
 		buff = (BufferedImage) img;
-		runBatch();
+		RenderedImage rend = crop(buff);
+		if (rend.getWidth()>10 && rend.getHeight()>10) {
+			ImageIO.write(rend, "png", new File("saved.png"));
+		}
+		//writeToBatch();
+		//ImageIO.write((RenderedImage)buff, "png", new File("saved.png"));
 		int output = readBatch();
 		//dont change, it works magically
 		for(int i = 0; i < array.length; i++)
@@ -115,28 +131,83 @@ public class GetHandImage implements ImageObserver
 				}
 				else if(array[i] == 7)
 				{
-
 					robo.sleep(checkSleep());
 				}
 			}
 		}
 	}
-
+	
+	public BufferedImage crop(Image img)
+	{
+		imgwidth = img.getWidth(this);
+		imgheight = img.getHeight(this);
+		getLoc();
+		handwidth = Math.abs(getHandWidth());
+		handheight = Math.abs(getHandHeight());
+		System.out.println("point " + p.getX() + " y " + p.getY() + " handw " + handwidth + " handh " + handheight);
+		return buff.getSubimage((int)p.getX(),(int) p.getY(), handwidth, handheight);
+	}
+	
+	public int getRead() {
+		
+	}
+	
 	//returns the first line of the output file
 	public int readBatch() throws IOException 
 	{
-		File output = new File("C:\\Users\\walkd\\Documents\\Eclipse Workspace\\Test2\\src\\output.txt");
-		BufferedReader br = new BufferedReader(new FileReader(output)); 
-		return Integer.parseInt(br.readLine());
+		System.out.println("reading");
+		int read;
+		Runnable runnable = new Runnable() {
+			@Override
+			public void run() {
+				try {
+					
+					System.out.println("reading2");
+					out.write("saved.png");
+					//out.flush();
+					//System.out.println("wroteX");
+					int ch = inp.read();
+					String test = inp.readLine();
+					System.out.println("test" + test);
+					System.out.println(ch);
+					read = Character.getNumericValue(ch);
+					//read = -1;
+				    System.out.println(read);
+					//return read;
+				}
+				catch (Exception e){
+					System.out.println("exeption");
+					System.out.println(e);
+					read = -1;
+				}
+			}
+		};
+//		File output = new File("C:\\Users\\walkd\\Documents\\Eclipse Workspace\\Test2\\src\\output.txt");
+//		BufferedReader br = new BufferedReader(new FileReader(output));
+		//while (!inp.readLine().equals("done"));
+		//int read = Character.getNumericValue(br.read());
+		System.out.println(read);
+		return read;
 	}
 
 	//runs batch file
-	public void runBatch() throws IOException
+	public void runBatch() throws IOException, InterruptedException
 	{
-		ProcessBuilder processBuilder = new ProcessBuilder();
-		processBuilder.command("cmd", "/c", "run.bat");
-		processBuilder.directory(new File("C:\\Users\\walkd\\Documents\\GitHub\\Motion-Tracking-Interface\\"));
-		Process process = processBuilder.start();
+//		ProcessBuilder processBuilder = new ProcessBuilder();
+//		processBuilder.command("cmd", "/c", "run.bat");
+//		processBuilder.directory(new File("C:\\Users\\walkd\\Documents\\GitHub\\Motion-Tracking-Interface\\"));
+//		Process process = processBuilder.start();
+		System.out.println(System.getProperty("user.dir"));
+		String cmd = "C:\\Users\\walkd\\AppData\\Local\\Programs\\Python\\Python36\\python.exe C:\\Users\\walkd\\Documents\\Eclipse Workspace\\Test2\\baked2.py "
+				+ "-i \"C:\\Users\\walkd\\Documents\\Eclipse Workspace\\Test2\" "
+				+ "-c \"C:\\Users\\walkd\\Documents\\GitHub\\NWAWP-Hand-Tracker\\test NN\\training_31\\cp.ckpt\"";
+		
+		Process process = Runtime.getRuntime().exec(cmd);
+		out = new BufferedWriter(new OutputStreamWriter(process.getOutputStream()));
+		if(out != null) System.out.println("yayO");
+		inp = new BufferedReader(new InputStreamReader(process.getInputStream()));
+		if(inp != null) System.out.println("yayI");
+		System.out.println("ran");
 	}  
 
 	public void getLoc() {

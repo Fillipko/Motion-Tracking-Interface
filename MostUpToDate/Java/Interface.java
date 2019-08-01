@@ -21,7 +21,7 @@ public class Interface extends JFrame implements ActionListener{
 	public Interface(GetHandImage getHand) {
 		setTitle("Hand Tracking");
 		setSize(500,500);
-		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		setLayout(new GridLayout(7,2));
 		set = new JButton ("Set");
 		reset = new JButton ("Reset");

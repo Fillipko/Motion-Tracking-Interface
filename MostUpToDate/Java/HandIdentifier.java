@@ -34,7 +34,7 @@ public class HandIdentifier {
 				}
 			} catch (Exception e)
 			{
-				
+
 			}
 		}
 		return mat;
