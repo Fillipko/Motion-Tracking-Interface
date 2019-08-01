@@ -143,12 +143,10 @@ public class DisplayWebcam extends JFrame implements ActionListener, ImageObserv
 			JOptionPane.showMessageDialog(this, "Made by:\n Fillip Cannard\n Sidharth Daga\n"
 					+ " Rowan Sheets\n David Zager\n Made Using OpenCV", "About", JOptionPane.INFORMATION_MESSAGE);
 		}
-		if(e.getSource().equals(instructions))
-		{
-			JOptionPane.showMessageDialog(this, "This applications lets you use your hand to control your computer! \n"
-					+ " To begin, go to 'Gesture settings' and customize your experience.\n", "Then, click 'Toggle Camera' to begin!", JOptionPane.INFORMATION_MESSAGE);
-		}
 
+
+
+		}
 		if(e.getSource().equals(instructions))
 		{
 			JOptionPane.showMessageDialog(this, "This applications lets you use your hand to control your computer! \n"
