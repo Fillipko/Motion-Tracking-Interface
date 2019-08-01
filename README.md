@@ -24,4 +24,4 @@ Place your hand in front of the camera on your computer making one of the gestur
 - Closed Hand --> Zoom Out  
 - Thumb Up --> Scroll Up  
 - Thumb Down --> Scroll Down  
-
+(You can change these commands in the Gesture Settings)
