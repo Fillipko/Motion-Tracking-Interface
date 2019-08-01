@@ -1,4 +1,6 @@
 package MyPackage;
+import java.awt.AWTException;
+
 import org.opencv.core.Core;
 import org.opencv.core.Mat;
 import org.opencv.core.MatOfRect;
@@ -13,15 +15,22 @@ public class HandIdentifier {
 	private int rectThickness = 3;
 	public int numOfFoundHands = 0;
 	private String[] xml;
+	private Robo robo;
 
-	static 
+	static
 	{
 		System.loadLibrary(Core.NATIVE_LIBRARY_NAME);
 	}
 
-	public Mat FindFace(Mat mat) 
+	public Mat FindFace(Mat mat)
 	{
+		try {
+			robo = new Robo();
+		} catch (AWTException e1) {
+			e1.printStackTrace();
+		}
 		xml = new String[]{"open", "closed"};
+		int counter = 0;
 		for(int i = 0; i < xml.length; i++)
 		{
 			try {
@@ -31,10 +40,20 @@ public class HandIdentifier {
 				numOfFoundHands = Integer.parseInt(String.format("%d", handDetection.toArray().length));
 				for (Rect rect : handDetection.toArray()) {
 					Imgproc.rectangle(mat, new Point(rect.x, rect.y), new Point(rect.x + rect.width, rect.y + rect.height), new Scalar(0, 0, 250), rectThickness);
+					counter++;
 				}
-			} catch (Exception e)
-			{
-				
+				if(counter > 0 && i == 0) {
+					robo.zoomIn();
+					//System.out.println("bye");
+
+				}
+				if(counter > 0 && i == 1) {
+					robo.zoomOut();
+					//System.out.println("hello");
+				}
+
+			} catch (Exception e){
+				e.printStackTrace(); 
 			}
 		}
 		return mat;

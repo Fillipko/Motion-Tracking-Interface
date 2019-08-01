@@ -32,11 +32,11 @@ public class Robo extends Robot
 	//zooms using windows magnifier
 	public void zoomIn() { 
 		keyPress(KeyEvent.VK_WINDOWS);
-		keyPress(KeyEvent.VK_PLUS);
-		keyPress(KeyEvent.VK_PLUS);
+		keyPress(KeyEvent.VK_EQUALS);
+		keyPress(KeyEvent.VK_EQUALS);
 		keyRelease(KeyEvent.VK_WINDOWS);
-		keyRelease(KeyEvent.VK_PLUS);
-		keyRelease(KeyEvent.VK_PLUS);
+		keyRelease(KeyEvent.VK_EQUALS);
+		keyRelease(KeyEvent.VK_EQUALS);
 	}
 
 	//zooms out using windows magnifier

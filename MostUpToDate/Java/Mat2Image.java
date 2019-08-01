@@ -13,7 +13,6 @@ public class Mat2Image
     {
         System.loadLibrary(Core.NATIVE_LIBRARY_NAME);
     }
-
     private Mat mat = new Mat();
     private BufferedImage buffImg;
     private HandIdentifier handIdentifier = new HandIdentifier();
@@ -21,7 +20,6 @@ public class Mat2Image
     public Mat2Image()
     {
     	handIdentifier.FindFace(mat);
-    	//System.out.println("Faces Found: " + faceIdentifier.numOfFoundFaces);
     }
 
     public Mat2Image(Mat mat)

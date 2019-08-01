@@ -1,4 +1,4 @@
-package opencvtest2;
+package MyPackage;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -15,7 +15,7 @@ import javax.swing.border.EmptyBorder;
 
 import org.opencv.core.Core;
 
-public class DisplayWebcam extends JFrame implements ActionListener, ImageObserver 
+public class DisplayWebcam extends JFrame implements ActionListener, ImageObserver
 {
 	private JPanel picturePanel;
 	private JPanel contentPane;
@@ -26,7 +26,7 @@ public class DisplayWebcam extends JFrame implements ActionListener, ImageObserv
 	private boolean activeCamera;
 	private Thread t;
 	private Image background;
-	private int counter; 
+	private int counter;
 	private GetHandImage getHand;
 	private Image currentImage;
 	private JButton instructions;
@@ -36,7 +36,7 @@ public class DisplayWebcam extends JFrame implements ActionListener, ImageObserv
 		picturePanel = new JPanel()
 		{
 			public void paint(Graphics g) {
-				if(!activeCamera) 
+				if(!activeCamera)
 				{
 					g.drawImage(background, 0, 0, this);
 				}
@@ -57,7 +57,7 @@ public class DisplayWebcam extends JFrame implements ActionListener, ImageObserv
 		gestureList = new JButton("Gesture Settings");
 		about = new JButton("About");
 		activeCamera = false;
-		background = ImageIO.read(new File("src/MenuLogo.jpg"));
+		background = ImageIO.read(new File("Images/MenuLogo.jpg"));
 		counter = 0;
 		getHand = new GetHandImage(currentImage);
 		instructions = new JButton("Instructions");
@@ -68,7 +68,7 @@ public class DisplayWebcam extends JFrame implements ActionListener, ImageObserv
 		setSize(width, height);
 		setContentPane(contentPane);
 		setVisible(true);
-		setIconImage(ImageIO.read(new File("src/IconLogo.jpg")));
+		setIconImage(ImageIO.read(new File("Images/IconLogo.jpg")));
 		toggleCam.addActionListener(this);
 		instructions.addActionListener(this);
 		about.addActionListener(this);
@@ -114,14 +114,15 @@ public class DisplayWebcam extends JFrame implements ActionListener, ImageObserv
 			while(true)
 			{
 				repaint();
-				try 
-				{ 
+				try
+				{
 					Thread.sleep(33);
-				} 
-				catch (InterruptedException e) 
+				}
+				catch (InterruptedException e)
 				{
 					e.printStackTrace();
 				}
+				System.gc();
 			}
 		}
 	}
@@ -134,14 +135,14 @@ public class DisplayWebcam extends JFrame implements ActionListener, ImageObserv
 			{
 				activeCamera = false;
 			}
-			else 
+			else
 			{
-				activeCamera = true;	
+				activeCamera = true;
 			}
 		}
 		if(e.getSource().equals(gestureList))
 		{
-			new Interface();
+			new Interface(getHand);
 		}
 		if(e.getSource().equals(about))
 		{
@@ -160,20 +161,20 @@ public class DisplayWebcam extends JFrame implements ActionListener, ImageObserv
 		return false;
 	}
 
-	public static void main(String[] args) 
+	public static void main(String[] args)
 	{
 		System.loadLibrary(Core.NATIVE_LIBRARY_NAME);
-		EventQueue.invokeLater(new Runnable() 
+		EventQueue.invokeLater(new Runnable()
 		{
-			public void run() 
+			public void run()
 			{
-				try 
+				try
 				{
-					new DisplayWebcam(1280, 780);
+					new DisplayWebcam(800, 700);
 					new Sound();
-					
+
 				}
-				catch (Exception e) 
+				catch (Exception e)
 				{
 					e.printStackTrace();
 				}
