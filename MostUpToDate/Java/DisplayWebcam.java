@@ -85,7 +85,7 @@ public class DisplayWebcam extends JFrame implements ActionListener, ImageObserv
 		c.anchor = GridBagConstraints.SOUTH;
 		buttonPane.add(instructions, c);
 		c.gridx = 100;
-		buttonPane.add(gestureList, c);
+		//buttonPane.add(gestureList, c);
 		c.gridx = 200;
 		buttonPane.add(toggleCam, c);
 		c.gridx = 300;
