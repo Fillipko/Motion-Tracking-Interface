@@ -21,6 +21,6 @@ public class VideoCap
 	BufferedImage getOneFrame()
 	{
 		capture.read(mat2img.getMat());
-        return mat2img.getImage(mat2img.getMat());
+		return mat2img.getImage(mat2img.getMat());
 	}
 }
