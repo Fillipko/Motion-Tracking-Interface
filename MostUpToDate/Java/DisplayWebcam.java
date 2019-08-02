@@ -25,11 +25,14 @@ public class DisplayWebcam extends JFrame implements ActionListener, ImageObserv
 	private JButton about;
 	private boolean activeCamera;
 	private Thread t;
+	private Thread t1;
 	private Image background;
 	private int counter;
 	private GetHandImage getHand;
 	private Image currentImage;
 	private JButton instructions;
+	private Interface inter;
+	public int[] in = new int[]{1, 2};
 
 	public DisplayWebcam(int width, int height) throws IOException, AWTException, InterruptedException
 	{
@@ -59,11 +62,11 @@ public class DisplayWebcam extends JFrame implements ActionListener, ImageObserv
 		activeCamera = false;
 		background = ImageIO.read(new File("Images/MenuLogo.jpg"));
 		counter = 0;
-		getHand = new GetHandImage(currentImage);
+		getHand = new GetHandImage(in);
 		instructions = new JButton("Instructions");
 
 		setResizable(false);
-		this.setTitle("Kinè6 Interface");
+		this.setTitle("Kine6 Interface");
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setSize(width, height);
 		setContentPane(contentPane);
@@ -95,6 +98,7 @@ public class DisplayWebcam extends JFrame implements ActionListener, ImageObserv
 		contentPane.add(buttonPane, BorderLayout.SOUTH);
 
 		t = new MyThread();
+		t1 = new MyThread2();
 		t.start();
 	}
 
@@ -126,6 +130,16 @@ public class DisplayWebcam extends JFrame implements ActionListener, ImageObserv
 			}
 		}
 	}
+	class MyThread2 extends Thread {
+		public void run() {
+			try {
+				Thread.sleep(200);
+			} catch (InterruptedException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+		}
+	}
 
 	public void actionPerformed(ActionEvent e)
 	{
@@ -142,7 +156,17 @@ public class DisplayWebcam extends JFrame implements ActionListener, ImageObserv
 		}
 		if(e.getSource().equals(gestureList))
 		{
-			new Interface(getHand);
+			inter = new Interface(getHand, this);
+
+//			while(inter.flag == false){
+//			    t1.run();
+//			}
+			in = inter.getArray();
+			System.out.println(in[0]);
+			System.out.println(in[1]);
+//			if (inter.flag) {
+//				in = inter.getArray();
+//			}
 		}
 		if(e.getSource().equals(about))
 		{

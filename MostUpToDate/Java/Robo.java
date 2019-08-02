@@ -16,6 +16,12 @@ public class Robo extends Robot
 		keyPress(KeyEvent.VK_TAB);
 		keyRelease(KeyEvent.VK_ALT); 
 		keyRelease(KeyEvent.VK_TAB);
+		try {
+			Thread.sleep(2000);
+		} catch (InterruptedException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 	}
 
 	//alt tabs to the left
@@ -27,6 +33,12 @@ public class Robo extends Robot
 		keyRelease(KeyEvent.VK_SHIFT);
 		keyRelease(KeyEvent.VK_ALT); 
 		keyRelease(KeyEvent.VK_TAB);
+		try {
+			Thread.sleep(2000);
+		} catch (InterruptedException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 	}
 
 	//zooms using windows magnifier
@@ -56,7 +68,7 @@ public class Robo extends Robot
 			mouseWheel(2);
 			try 
 			{
-				Thread.sleep(200);
+				Thread.sleep(500);
 			}
 			catch (InterruptedException e)
 			{
@@ -73,7 +85,7 @@ public class Robo extends Robot
 			mouseWheel(-2);
 			try 
 			{
-				Thread.sleep(200);
+				Thread.sleep(500);
 			}
 			catch (InterruptedException e)
 			{
@@ -83,21 +95,19 @@ public class Robo extends Robot
 	}
 
 	//puts computer to sleep
-	public void sleep(boolean b) throws InterruptedException
+	public void sleep() throws InterruptedException
 	{
-		if (b) {	
 		keyPress(KeyEvent.VK_WINDOWS);
-			keyPress(KeyEvent.VK_X);
-			keyRelease(KeyEvent.VK_X);
-			keyRelease(KeyEvent.VK_WINDOWS);
-			Thread.sleep(0, 1);
-			keyPress(KeyEvent.VK_U);
-			Thread.sleep(0, 1);
-			keyPress(KeyEvent.VK_S);
-			keyRelease(KeyEvent.VK_U);
-			keyRelease(KeyEvent.VK_S);
-			keyRelease(KeyEvent.VK_WINDOWS);
-		}
+		keyPress(KeyEvent.VK_X);
+		keyRelease(KeyEvent.VK_X);
+		keyRelease(KeyEvent.VK_WINDOWS);
+		Thread.sleep(0, 1);
+		keyPress(KeyEvent.VK_U);
+		Thread.sleep(0, 1);
+		keyPress(KeyEvent.VK_S);
+		keyRelease(KeyEvent.VK_U);
+		keyRelease(KeyEvent.VK_S);
+		keyRelease(KeyEvent.VK_WINDOWS);
 	}
 
 	//	public static void main(String[] args) throws InterruptedException, AWTException
